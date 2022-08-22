@@ -25,7 +25,7 @@ import skiddedclient.utils.render.RenderUtils;
 
 public class ColorBox extends Component {
 	
-	protected static FontRenderer fontSmall = new FontRenderer("Montserrat.otf", new Identifier("skiddedclient", "fonts"), 16);
+	protected static FontRenderer fontSmall = new FontRenderer("Montserrat.otf", new Identifier("skiddedclient", "fonts"), 18);
 
 	private ColorSetting colorSet = (ColorSetting)setting;
 	private boolean lmDown = false, rmDown = false;
@@ -49,11 +49,6 @@ public class ColorBox extends Component {
 	public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
 //		offset = parent.offset+getHeight(parent.parent.width);
 		offset=75;
-		
-//		
-//		ffs where is the fucking offset thing
-//		
-		
 //		System.out.println(parent.parent.height);
 //		offset += /*parent.parent.height*/parent.module.getSetting().size()/parent.parent.height;
 //		offset += parent.parent.height;
@@ -64,18 +59,23 @@ public class ColorBox extends Component {
 		sy = parent.parent.getY() + 4 + parent.offset +offset+ parent.parent.height + 12;
 		ex = parent.parent.getX() + parent.parent.width - 17;
 		ey = parent.parent.getY() + 4 + parent.offset +offset+ parent.parent.height + getHeight(parent.parent.width) + 8;
+		int offsetY = ((parent.parent.height / 2) - mc.textRenderer.fontHeight / 2);
 
-		RenderUtils.fill(matrices, parent.parent.getX(), parent.parent.getY() + parent.offset + offset + parent.parent.height, parent.parent.getX() + parent.parent.width, parent.parent.getY() + parent.offset + offset + parent.parent.height * (open ? 7 : 2), 0xff262626);
-//		RenderUtils.fill(matrices, parent.parent.x, parent.parent.y + parent.offset + offset, parent.parent.x + parent.parent.width, parent.parent.y + parent.offset + offset + parent.parent.height * (open?7:2), 0xff262626);
-		fontSmall.drawWithShadow(matrices, colorSet.name, (int) sx, (int) sy - 12, 0xff747474, false);
-		fontSmall.drawWithShadow(matrices, "#" + colorSet.getHex().toUpperCase(), (int) sx + fontSmall.getStringWidth(colorSet.name, false) + (open ? 12 : 2), (int) sy - 12, colorSet.getRGB(), false);
+		DrawableHelper.fill(matrices, parent.parent.x, parent.parent.y + parent.offset + offset, parent.parent.x + parent.parent.width, parent.parent.y + parent.offset + offset + parent.parent.height * (open ? 7 : 1), 0xff262626);
 		
-		if (hovered((int)mouseX, (int)mouseY, sx + (int) fontSmall.getStringWidth(colorSet.name + "#" + colorSet.getHex().toUpperCase(), false) + 4, sy - 12, (int) (sx + fontSmall.getStringWidth(colorSet.name + "#" + colorSet.getHex().toUpperCase(), false) + 30), sy - 4) && !open) {
+		fontSmall.draw(matrices, "| " + colorSet.name, parent.parent.x + offsetY, parent.parent.y + parent.offset + offset + offsetY-6, 0xff747474, false);
+		fontSmall.draw(matrices, "#" + colorSet.getHex().toUpperCase(), parent.parent.x + 5 + offsetY + fontSmall.getStringWidth(colorSet.name, false) + (open ? 12 : 2), parent.parent.y + parent.offset + offset + offsetY-6, colorSet.getRGB(), false);
+//		parent.parent.x + offsetY, parent.parent.y + parent.offset + offset + offsetY-6
+		if (hovered ( 
+				(int) mouseX, (int) mouseY, 
+				(int) (parent.parent.x + fontSmall.getStringWidth("| "+colorSet.name + "#" + colorSet.getHex().toUpperCase(), false) + 8),
+				(int) (parent.parent.y + parent.offset + offset + offsetY),
+				(int) (parent.parent.x + fontSmall.getStringWidth("| "+colorSet.name + "#" + colorSet.getHex().toUpperCase(), false) + 25),
+				(int) (parent.parent.y + parent.offset + offset + offsetY+8.5) ) && !open) {
 			if (rmDown) open = true;
 		}
 		if (!open) {
-			RenderUtils.fill(matrices, sx + fontSmall.getStringWidth(colorSet.name + "#" + colorSet.getHex().toUpperCase(), false) + 4, sy - 12, sx + fontSmall.getStringWidth(colorSet.name + "#" + colorSet.getHex().toUpperCase(), false) + 30, sy - 4, colorSet.getColor().getRGB());
-			
+			RenderUtils.fill(matrices, parent.parent.x + fontSmall.getStringWidth("| "+colorSet.name + "#" + colorSet.getHex().toUpperCase(), false) + 8,  parent.parent.y + parent.offset + offset + offsetY, parent.parent.x + parent.parent.width-3.5,  parent.parent.y + parent.offset + offset + offsetY+8.5, colorSet.getColor().getRGB());
 			return;
 		}
 		RenderUtils.fill(matrices, sx + 3 + (int)fontSmall.getStringWidth(colorSet.name + colorSet.getHex().toUpperCase(), false) + 17, sy - 4, sx + 27 + (int)fontSmall.getStringWidth(colorSet.name + colorSet.getHex().toUpperCase(), false), sy - 12, new Color(0, 0, 0, 200).getRGB());
@@ -109,10 +109,9 @@ public class ColorBox extends Component {
 		bufferBuilder.vertex(sx, ey, 0).color(0, 0, 0, 255).next();
 		bufferBuilder.vertex(ex, ey, 0).color(0, 0, 0, 255).next();
 		tessellator.draw();
-
+		
 		RenderSystem.disableBlend();
 		RenderSystem.enableTexture();
-		
 		//Set the color
 		if (hovered(mouseX, mouseY, sx, sy, ex, ey) && lmDown) {
 			colorSet.bri = 1f - 1f / ((float) (ey - sy) / (mouseY - sy));
@@ -121,12 +120,22 @@ public class ColorBox extends Component {
 
 		int briY = (int) (ey - (ey - sy) * colorSet.bri);
 		int satX = (int) (sx + (ex - sx) * colorSet.sat);
-
+		
+//		parent.parent.x + offsetY, parent.parent.y + parent.offset + offset + offsetY-6
 		RenderUtils.fill(matrices, satX - 2, briY - 2, satX + 2, briY + 2, Color.GRAY.brighter().getRGB(), Color.WHITE.darker().getRGB(), Color.WHITE.getRGB());
 		// close v
-		RenderUtils.fill(matrices, sx + 3 + fontSmall.getStringWidth(colorSet.name, false), sy - 4, sx + 10 + fontSmall.getStringWidth(colorSet.name, false), sy - 12, colorSet.getColor().getRGB());
+		RenderUtils.fill(matrices, 
+				(parent.parent.x + fontSmall.getStringWidth("| "+colorSet.name, false) + 5),
+				(parent.parent.y + parent.offset + offset + offsetY),
+				(parent.parent.x + fontSmall.getStringWidth("| "+colorSet.name, false) + 13),
+				(parent.parent.y + parent.offset + offset + offsetY+8.5),
+				colorSet.getColor().getRGB());
 
-		if (hovered((int)mouseX, (int)mouseY, sx + 3 + (int)fontSmall.getStringWidth(colorSet.name, false), sy - 12, sx + 10 + (int)fontSmall.getStringWidth(colorSet.name, false), sy - 4) && open) {
+		if (hovered((int)mouseX, (int)mouseY,				
+				(int) (parent.parent.x + fontSmall.getStringWidth("| "+colorSet.name, false) + 5),
+				(int) (parent.parent.y + parent.offset + offset + offsetY),
+				(int) (parent.parent.x + fontSmall.getStringWidth("| "+colorSet.name, false) + 13),
+				(int) (parent.parent.y + parent.offset + offset + offsetY+8.5)) && open) {
 			if (rmDown) open = false;
 		}
 
