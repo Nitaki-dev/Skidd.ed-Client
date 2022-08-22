@@ -47,8 +47,16 @@ public class ColorBox extends Component {
 
 	@Override
 	public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
-//		System.out.println();
-		offset=0; 
+//		offset = parent.offset+getHeight(parent.parent.width);
+		offset=75;
+		
+//		
+//		ffs where is the fucking offset thing
+//		
+		
+//		System.out.println(parent.parent.height);
+//		offset += /*parent.parent.height*/parent.module.getSetting().size()/parent.parent.height;
+//		offset += parent.parent.height;
 //		offset=parent.parent.height*parent.module.getSetting().size()-parent.offset*2;
 //		offset=offset-parent.parent.height;
 		colorSet.name = colorSet.name;

@@ -19,10 +19,13 @@ public class ClickGUI extends Screen {
 		
 		frames = new ArrayList<>();
 		
-		int offset = 40;
+		int offset = 10;
 		for (Category category : Category.values()) {
 			frames.add(new Frame(category, offset, 20, 100, 15));
 			offset += 110;
+		}
+		for (Frame frame : frames) {
+			frame.updatePosition(frame.x, frame.y+5);
 		}
 	}
 
