@@ -1,0 +1,38 @@
+{
+  "schemaVersion": 1,
+  "id": "skiddedclient",
+  "version": "${version}",
+
+  "name": "heck",
+  "description": "Hacked Client",
+  "authors": [
+    "me"
+  ],
+  "contact": {
+    "homepage": "https://nitaki.xyz/",
+    "sources": "https://github.com/"
+  },
+
+  "license": "CC0-1.0",
+  "icon": "assets/skiddedclient/icon.png",
+
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "skiddedclient.Client"
+    ]
+  },
+  "mixins": [
+    "skiddedclient.mixins.json"
+  ],
+
+  "depends": {
+    "fabricloader": ">=0.14.6",
+    "fabric": "*",
+    "minecraft": "~1.19",
+    "java": ">=17"
+  },
+  "suggests": {
+    "another-mod": "*"
+  }
+}

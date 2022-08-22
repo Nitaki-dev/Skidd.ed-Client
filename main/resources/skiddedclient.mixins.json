@@ -1,0 +1,24 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "skiddedclient.mixins",
+  "compatibilityLevel": "JAVA_17",
+  "mixins": [
+  ],
+  "client": [
+    "BlockRender",
+    "InGameHudMixin",
+    "KeyboardMixin",
+    "LivingEntityRendererMixin",
+    "MinecraftClientMixin",
+    "MouseMixin",
+    "PlayerMoveC2SPacketAccessor",
+    "WorldAccessor",
+    "WorldRendererAccessor",
+    "WorldRendererMixin",
+    "XRayLighting"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
