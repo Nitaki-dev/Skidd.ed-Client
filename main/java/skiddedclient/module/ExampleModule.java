@@ -15,10 +15,12 @@ public class ExampleModule extends Mod {
 	public BooleanSetting bool = new BooleanSetting("Toggle", true);
 	public ModeSetting mode = new ModeSetting("Mode", "Mode 1", "Mode 1", "Mode 2", "Mode 3");
 	public ColorSetting color = new ColorSetting("Color", ColorUtils.red);
-
+	
     public ExampleModule() {
         super("TestModule", "This is an Example module!", Category.WORLD);
         addSettings(speed, bool, mode, color);
+//        addSetting(color);
+
     }
 
 	@Override
