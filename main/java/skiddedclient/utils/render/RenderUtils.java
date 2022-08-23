@@ -21,6 +21,7 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.ItemEntity;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Box;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.MathHelper;
@@ -572,4 +573,11 @@ public class RenderUtils {
 		        RenderSystem.disableBlend();
 		        stack.pop();
 		    }
+			
+			 public static Vec3d getRenderPosition(BlockPos blockPos) {
+		         double minX = blockPos.getX() - mc.getEntityRenderDispatcher().camera.getPos().x;
+		         double minY = blockPos.getY() - mc.getEntityRenderDispatcher().camera.getPos().y;
+		         double minZ = blockPos.getZ() - mc.getEntityRenderDispatcher().camera.getPos().z;
+		         return new Vec3d(minX, minY, minZ);
+			 }
 }

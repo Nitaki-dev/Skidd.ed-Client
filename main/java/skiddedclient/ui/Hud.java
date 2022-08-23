@@ -23,8 +23,10 @@ public class Hud {
 	@SuppressWarnings("unused")
 	public static void renderArrayList(MatrixStack matrices) {
 //		DrawableHelper.fill(matrices, 9, 8, 54, 19, 0xff121212);		
-		RenderUtils.renderRoundedQuad(matrices, new Color(32,32,32), 10, 7, 55, 19, 3, 20);
-		customFont.draw(matrices, "Skidd.ed", 11, 2, -1, false);
+		if (mc.player.currentScreenHandler == null) {
+			customFont.draw(matrices, "Skidd.ed", 11, 2, -1, false);
+			RenderUtils.renderRoundedQuad(matrices, new Color(32,32,32), 10, 7, 55, 19, 3, 20);
+		}
 
 		int index = 0;
 		int sWidth = mc.getWindow().getScaledWidth();

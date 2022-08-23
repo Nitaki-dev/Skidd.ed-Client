@@ -1,25 +1,30 @@
 package skiddedclient.module.movement;
 
 import skiddedclient.module.Mod;
+import skiddedclient.module.settings.BooleanSetting;
 
 public class Sprint extends Mod {
 
+	BooleanSetting smart = new BooleanSetting("Smart", false);
 
     public Sprint() {
-        super("Sprint", "Auto sprint", Category.MOVEMENT);
+        super("Sprint", "Automatically sprints for you", Category.MOVEMENT);
+        addSetting(smart);
     }
 
     @Override
     public void onTick() {
     	if (this.isEnabled()) {
-    		mc.player.setSprinting(true);
+    		if (smart.isEnabled()) {
+    			if (mc.player.forwardSpeed>0) mc.player.setSprinting(true);
+    		}
+    		else mc.player.setSprinting(true);
     	}
         super.onTick();
     }
 
     @Override
     public void onDisable() {
-        mc.player.stepHeight = 0.6f;
         super.onDisable();
     }
 	

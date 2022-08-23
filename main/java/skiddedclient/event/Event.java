@@ -1,7 +1,5 @@
 package skiddedclient.event;
 
-
-
 import java.lang.reflect.InvocationTargetException;
 
 /**

@@ -24,10 +24,10 @@ import skiddedclient.utils.render.RenderUtils;
 
 public class ESP extends Mod {
 
-	public ModeSetting mode = new ModeSetting("Mode", "Rect", "Rect", "Box");
+	public static ModeSetting mode = new ModeSetting("Mode", "Rect", "Rect", "Box");
 	public ColorSetting color = new ColorSetting("Color", ColorUtils.red);
 	public ESP() {
-		super("ESP", "esp.", Category.RENDER);
+		super("ESP", "Renders a rect/box around entities", Category.RENDER);
 		addSettings(mode, color);
 	}
 	

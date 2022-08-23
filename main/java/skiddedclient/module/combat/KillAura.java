@@ -29,7 +29,7 @@ public class Killaura extends Mod {
 
     
     public Killaura() {
-        super("Killaura", "yk", Category.COMBAT);
+        super("Killaura", "Automatically attacks living entities for you", Category.COMBAT);
         addSettings(mode, rotationmode, range, cooldown, priority, esp);
     }
 

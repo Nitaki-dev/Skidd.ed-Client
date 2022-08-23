@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawableHelper;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
@@ -24,6 +25,7 @@ import skiddedclient.utils.font.FontRenderer;
 import skiddedclient.utils.render.RenderUtils;
 
 public class ModuleButton {
+	private static MinecraftClient mc = MinecraftClient.getInstance();
 
 	public Mod module;
 	public Frame parent;
@@ -58,7 +60,11 @@ public class ModuleButton {
 		}
 	}
 	
+	@SuppressWarnings("unused")
 	public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
+		int sWidth = mc.getWindow().getScaledWidth();
+		int sHeight = mc.getWindow().getScaledHeight();
+		
 		int offsetY = ((parent.height / 2) - parent.mc.textRenderer.fontHeight / 2);
 		
 		if (parent.buttons.indexOf(this) != parent.buttons.size() - 1) {
@@ -73,6 +79,11 @@ public class ModuleButton {
 		}
 
 		customFont.draw(matrices, module.getName(), parent.x + offsetY, parent.y + offset + offsetY-6, module.isEnabled() ? 0xffffffff : 0xffc4c4c4, false);
+		
+		if (isHovered(mouseX, mouseY)) {
+			DrawableHelper.fill(matrices, 0, sHeight, (int) customFont.getStringWidth(module.getDescription(), false)+5, sHeight - (int)customFont.getStringHeight("|", false)-3, 0x70000000);
+			customFont.drawWithShadow(matrices, module.getDescription(), 2, sHeight - customFont.getStringHeight("|", false)-1, -1, false);
+		}
 
 		
 		if (extended) {
