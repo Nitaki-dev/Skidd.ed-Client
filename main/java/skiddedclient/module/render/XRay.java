@@ -26,7 +26,7 @@ public class XRay extends Mod {
 	public static ArrayList<Block> blocks = new ArrayList<>();
     
     public XRay() {
-        super("Xray", "See ores through blocks", Category.RENDER);
+        super("Xray", "Only render ore blocks", Category.RENDER);
 		Registry.BLOCK.forEach(block -> {
             if (isGoodBlock(block)) blocks.add(block);
         });

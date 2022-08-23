@@ -7,6 +7,7 @@ import skiddedclient.module.Mod.Category;
 import skiddedclient.module.combat.*;
 import skiddedclient.module.movement.*;
 import skiddedclient.module.render.*;
+import skiddedclient.module.world.*;
 
 
 public class ModuleManager {
@@ -56,7 +57,10 @@ public class ModuleManager {
 		modules.add(new ClickTP());
 		modules.add(new Tracers());
 		modules.add(new Sprint());
+		modules.add(new NoFall());
 		modules.add(new Flight());
+		modules.add(new Timer());
+		modules.add(new Nuker());
 		modules.add(new XRay());
 		modules.add(new ESP());
 	}

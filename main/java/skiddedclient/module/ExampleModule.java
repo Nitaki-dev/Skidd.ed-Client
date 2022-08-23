@@ -17,7 +17,7 @@ public class ExampleModule extends Mod {
 	public ColorSetting color = new ColorSetting("Color", ColorUtils.red);
 	
     public ExampleModule() {
-        super("TestModule", "This is an Example module!", Category.WORLD);
+        super("TestModule", "This is an Example module", Category.EXPLOIT);
         addSettings(speed, bool, mode, color);
 //        addSetting(color);
 

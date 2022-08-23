@@ -34,7 +34,7 @@ public class ClickTP extends Mod {
 	public static ModeSetting mode = new ModeSetting("Mode", "Normal", "Normal", "Split");
 	
     public ClickTP() {
-        super("ClickTP", "tp to click when look", Category.MOVEMENT);
+        super("ClickTP", "Tries to TP you to the targeted location", Category.MOVEMENT);
         addSettings(mode);
     }
     
