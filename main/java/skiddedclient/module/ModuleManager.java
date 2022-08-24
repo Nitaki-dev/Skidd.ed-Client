@@ -53,15 +53,18 @@ public class ModuleManager {
 		modules.add(new ExampleModule());
 		modules.add(new CrystalAura());
 		modules.add(new FakePlayer());
+		modules.add(new Fullbright());
 		modules.add(new Killaura());
 		modules.add(new ClickTP());
 		modules.add(new Tracers());
 		modules.add(new Sprint());
 		modules.add(new NoFall());
+		modules.add(new Strafe());
 		modules.add(new Flight());
 		modules.add(new Timer());
 		modules.add(new Nuker());
 		modules.add(new XRay());
+		modules.add(new Step());
 		modules.add(new ESP());
 	}
 
