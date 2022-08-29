@@ -2,10 +2,9 @@ package skiddedclient.module;
 
 import net.minecraft.client.MinecraftClient;
 import skiddedclient.module.settings.BooleanSetting;
-import skiddedclient.module.settings.ColorSetting;
 import skiddedclient.module.settings.ModeSetting;
 import skiddedclient.module.settings.NumberSetting;
-import skiddedclient.utils.render.ColorUtils;
+import skiddedclient.module.settings.PasteSetting;
 
 public class ExampleModule extends Mod {
 	
@@ -14,11 +13,12 @@ public class ExampleModule extends Mod {
 	public NumberSetting speed = new NumberSetting("Slider",  0.2, 10, 1, 0.1);
 	public BooleanSetting bool = new BooleanSetting("Toggle", true);
 	public ModeSetting mode = new ModeSetting("Mode", "Mode 1", "Mode 1", "Mode 2", "Mode 3");
-	public ColorSetting color = new ColorSetting("Color", ColorUtils.red);
+//	public ColorSetting color = new ColorSetting("Color", ColorUtils.red);
+	public PasteSetting paste = new PasteSetting("Color", false);
 	
     public ExampleModule() {
         super("TestModule", "This is an Example module", Category.EXPLOIT);
-        addSettings(speed, bool, mode, color);
+        addSettings(speed, bool, mode, paste);
 //        addSetting(color);
 
     }

@@ -2,6 +2,7 @@ package skiddedclient.utils;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import net.minecraft.client.MinecraftClient;
 //import dev.hypnotic.utils.player.Target;
@@ -15,11 +16,13 @@ import net.minecraft.util.math.Box;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.Direction.Axis;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Vec2f;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.RaycastContext;
 import skiddedclient.utils.misc.Pool;
 import skiddedclient.utils.player.Target;
 
+@SuppressWarnings("unused")
 public class RotationUtils {
 	public static MinecraftClient mc = MinecraftClient.getInstance();
 	
@@ -29,7 +32,10 @@ public class RotationUtils {
 	public static boolean isCustomPitch = false;
 	public static boolean isCustomYaw = false;
 	public static float serverYaw;
-
+	
+    private static float clientPitch;
+    private static float clientYaw;
+	private static long lastModificationTime = 0;
     public static void setSilentPitch(float pitch) {
         RotationUtils.serverPitch = pitch;
         isCustomPitch = true;
@@ -233,5 +239,28 @@ public class RotationUtils {
 	public static double getPitch(Entity entity) {
         return getPitch(entity, Target.Body);
     }
-
+	
+    public static Vec2f getPitchYaw(Vec3d targetV3) {
+        return getPitchYawFromOtherEntity(Objects.requireNonNull(mc.player).getEyePos(), targetV3);
+    }
+    
+    public static Vec2f getPitchYawFromOtherEntity(Vec3d eyePos, Vec3d targetV3) {
+        double vec = 57.2957763671875;
+        Vec3d target = targetV3.subtract(eyePos);
+        double square = Math.sqrt(target.x * target.x + target.z * target.z);
+        float pitch = MathHelper.wrapDegrees((float) (-(MathHelper.atan2(target.y, square) * vec)));
+        float yaw = MathHelper.wrapDegrees((float) (MathHelper.atan2(target.z, target.x) * vec) - 90.0F);
+        return new Vec2f(pitch, yaw);
+    }
+    
+    public static void setClientPitch(float clientPitch) {
+        lastModificationTime = System.currentTimeMillis();
+        RotationUtils.clientPitch = clientPitch;
+    }
+    
+    public static void setClientYaw(float clientYaw) {
+        lastModificationTime = System.currentTimeMillis();
+        RotationUtils.clientYaw = clientYaw;
+    }
+    
 }
