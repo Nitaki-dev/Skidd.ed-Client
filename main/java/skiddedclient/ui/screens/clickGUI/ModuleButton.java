@@ -14,6 +14,7 @@ import skiddedclient.module.settings.ColorSetting;
 import skiddedclient.module.settings.KeyBindSetting;
 import skiddedclient.module.settings.ModeSetting;
 import skiddedclient.module.settings.NumberSetting;
+import skiddedclient.module.settings.PasteSetting;
 import skiddedclient.module.settings.Setting;
 import skiddedclient.ui.screens.clickGUI.setting.CheckBox;
 import skiddedclient.ui.screens.clickGUI.setting.ColorBox;
@@ -21,6 +22,7 @@ import skiddedclient.ui.screens.clickGUI.setting.Component;
 import skiddedclient.ui.screens.clickGUI.setting.KeyBind;
 import skiddedclient.ui.screens.clickGUI.setting.ModeBox;
 import skiddedclient.ui.screens.clickGUI.setting.Slider;
+import skiddedclient.ui.screens.clickGUI.setting.PasteBox;
 import skiddedclient.utils.font.FontRenderer;
 import skiddedclient.utils.render.RenderUtils;
 
@@ -55,6 +57,8 @@ public class ModuleButton {
 				components.add(new KeyBind(setting, this, setOffset));
 			} else if (setting instanceof ColorSetting) {
 				components.add(new ColorBox(setting, this, setOffset));
+			}if (setting instanceof PasteSetting) {
+				components.add(new PasteBox(setting, this, setOffset));
 			}
 			setOffset += parent.height;
 		}

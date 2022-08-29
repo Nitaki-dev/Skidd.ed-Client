@@ -50,24 +50,6 @@ public class ClickTP extends Mod {
         double factor = Math.pow(10, n);
         return Math.round(x * factor) / factor;
     }
-    
-	@Override
-	public void onTick() {
-
-		super.onTick();
-	}
-	
-	@Override
-	public void onEnable() {
-		
-		super.onEnable();
-	}
-	
-	@Override
-	public void onDisable() {
-		
-		super.onDisable();
-	}
 	
 	public static void clickTPaction() {
 		BlockHitResult ray = (BlockHitResult) mc.player.raycast(200, mc.getTickDelta(), true);
@@ -108,12 +90,13 @@ public class ClickTP extends Mod {
         }
 	}
 	
+	
 	@Override
 	public void onWorldRender(MatrixStack matrices) {
         BlockHitResult blockHitResult = (BlockHitResult) mc.player.raycast(200, mc.getTickDelta(), true);
         BlockPos d = new BlockPos(blockHitResult.getBlockPos());
         BlockPos dest = new BlockPos(d.getX() + 0.5, d.getY(), d.getZ() + 0.5);
-			RenderUtils.drawBoxFill(new Box(Vec3d.of(dest), Vec3d.of(dest).add(1, 0, 1)).stretch(0, 1, 0), QuadColor.single(0, 100f, 99f, 0.5f));
+		RenderUtils.drawBoxFill(new Box(Vec3d.of(dest), Vec3d.of(dest).add(1, 0, 1)).stretch(0, 1, 0), QuadColor.single(0, 100f, 99f, 0.5f));
 		super.onWorldRender(matrices);
 	}
 }

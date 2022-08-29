@@ -6,7 +6,6 @@ import java.util.List;
 
 import com.google.common.collect.Lists;
 
-import net.minecraft.text.Text;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 
@@ -25,12 +24,11 @@ public class Killaura extends Mod {
     public static NumberSetting range = new NumberSetting("Range", 3, 6, 4, 0.1);
     public static BooleanSetting cooldown = new BooleanSetting("Cooldown", true);
     public static ModeSetting priority = new ModeSetting("Priority", "Random", "Random", "Random");
-    public static BooleanSetting esp = new BooleanSetting("ESP", false);
 
     
     public Killaura() {
         super("Killaura", "Automatically attacks living entities for you", Category.COMBAT);
-        addSettings(mode, rotationmode, range, cooldown, priority, esp);
+        addSettings(mode, rotationmode, range, cooldown, priority);
     }
 
     public void onTick() {
@@ -66,7 +64,7 @@ public class Killaura extends Mod {
                         			RotationUtils.setSilentYaw(yaw);
                         		}
                                 if (cooldown.isEnabled() ? mc.player.getAttackCooldownProgress(0.5F) == 1 : true) {
-                                	if (targets.get(0) != null) mc.inGameHud.getChatHud().addMessage(Text.literal("[Skidd.ed] " + targets.get(0).getHealth() + ""));
+//                                	if (targets.get(0) != null) mc.inGameHud.getChatHud().addMessage(Text.literal("[Skidd.ed] " + targets.get(0).getHealth() + ""));
                                     mc.interactionManager.attackEntity(mc.player, targets.get(0));
                             		mc.player.swingHand(Hand.MAIN_HAND);
                             		resetRotation();

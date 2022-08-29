@@ -5,6 +5,7 @@ import java.util.List;
 
 import skiddedclient.module.Mod.Category;
 import skiddedclient.module.combat.*;
+import skiddedclient.module.exploit.*;
 import skiddedclient.module.movement.*;
 import skiddedclient.module.render.*;
 import skiddedclient.module.world.*;
@@ -50,22 +51,38 @@ public class ModuleManager {
 	}
 	
 	private void addModules() {
+		modules.add(new FakeGMode());
 		modules.add(new ExampleModule());
 		modules.add(new CrystalAura());
 		modules.add(new FakePlayer());
+		modules.add(new TargetHud());
+		modules.add(new FastClimb());
 		modules.add(new Fullbright());
+		modules.add(new IceSpeed());
+		modules.add(new HoleESP());
+		modules.add(new ElytraFly());
+		modules.add(new AirJump());
+		modules.add(new Scaffold());
+		modules.add(new Jetpack());
+		modules.add(new BoatFly());
 		modules.add(new Killaura());
 		modules.add(new ClickTP());
+		modules.add(new Trigger());
 		modules.add(new Tracers());
-		modules.add(new Sprint());
+		modules.add(new FastXP());
+		modules.add(new Spider());
 		modules.add(new NoFall());
-		modules.add(new Strafe());
-		modules.add(new Flight());
-		modules.add(new Timer());
+		modules.add(new Reach());
 		modules.add(new Nuker());
+		modules.add(new Sprint());
+		modules.add(new Flight());
+		modules.add(new Strafe());
+		modules.add(new Timer());
+		modules.add(new Jesus());
 		modules.add(new XRay());
 		modules.add(new Step());
 		modules.add(new ESP());
+		//31 Modules
 	}
 
 	public Mod getModuleByName(String moduleName) {
