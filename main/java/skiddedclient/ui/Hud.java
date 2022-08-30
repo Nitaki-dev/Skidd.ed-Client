@@ -2,6 +2,7 @@ package skiddedclient.ui;
 
 import java.awt.Color;
 import java.util.Comparator;
+import java.util.List;
 
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.util.math.MatrixStack;
@@ -27,7 +28,6 @@ public class Hud {
 	
 	@SuppressWarnings("unused")
 	public static void renderArrayList(MatrixStack matrices) {
-//		DrawableHelper.fill(matrices, 9, 8, 54, 19, 0xff121212);		
 		if (mc.player.currentScreenHandler == null) {
 			customFont.draw(matrices, "Skidd.ed", 11, 2, -1, false);
 			RenderUtils.renderRoundedQuad(matrices, new Color(32,32,32), 10, 7, 55, 19, 3, 20);
@@ -36,18 +36,22 @@ public class Hud {
 		int index = 0;
 		int sWidth = mc.getWindow().getScaledWidth();
 		int sHeight = mc.getWindow().getScaledHeight();
+		
+		List<Mod> enabled = ModuleManager.INSTANCE.getEnabledModules();
+		
+		enabled.sort(Comparator.comparingInt(m -> (int)customFont.getStringWidth(((Mod)m).getDisplayName(), false)).reversed());
 
-		ModuleManager.INSTANCE.getEnabledModules().sort(Comparator.comparingInt(m -> (int)mc.textRenderer.getWidth(((Mod)m).getDisplayName())).reversed());
-
-		for (Mod mod : ModuleManager.INSTANCE.getEnabledModules()) {
+		for (Mod mod : enabled) {
 			int fWidth = (int) customFont.getStringWidth(mod.getDisplayName(), false);
 			int fHeight = (int) customFont.getStringHeight(mod.getDisplayName(), false);
 			int offset = index*(fHeight);
 			int slideroption = 4;
-			customFont.draw(matrices, mod.getDisplayName(), sWidth-4-fWidth, ((fHeight)*(index))-3, -1, false);
+			customFont.draw(matrices, mod.getDisplayName(), sWidth-3-fWidth, ((fHeight)*(index))-4, -1, false);
+//			DrawableHelper.fill(matrices, sWidth-3, fHeight-fHeight, sWidth, fHeight*index+14, -1);
+//			DrawableHelper.fill(matrices, sWidth, 9, sWidth - 2,  20 + (index * 13), -1);
+
 			
-//			mc.textRenderer.drawWithShadow(matrices, mod.getDisplayName(), sWidth-4-fWidth, 2+((fHeight+2)*(index)), -1);
-			index++;
+		index++;
 		}
 	}
 	
@@ -73,8 +77,7 @@ public class Hud {
 				RenderUtils.renderRoundedQuad(matrices, new Color(41,41,41), 10+sWidth/2, 10+sHeight/2, 10+sWidth/2+70, 5+sHeight/2+40, 5, 10);
 				mc.textRenderer.drawWithShadow(matrices, target.getName(), 10+sWidth/2+6, 10+sHeight/2+5, -1);
 				RenderUtils.renderRoundedQuad(matrices, new Color(24,24,24), 10+sWidth/2+5, 10+sHeight/2+18, 10+sWidth/2+65, 10+sHeight/2 + 28, 3, 10);
-				RenderUtils.renderRoundedQuad(matrices, new Color(172,24,150), 10+sWidth/2+5, 10+sHeight/2+18, 10+sWidth/2 + (target.getHealth()*3) + 5, 10+sHeight/2+ 28, 3, 10);
-//				Client.logger.info(target);
+				RenderUtils.renderRoundedQuad(matrices, new Color(249,125,1), 10+sWidth/2+5, 10+sHeight/2+18, 10+sWidth/2 + (target.getHealth()*3) + 5, 10+sHeight/2+ 28, 3, 10);
 			}
 		}
 	}

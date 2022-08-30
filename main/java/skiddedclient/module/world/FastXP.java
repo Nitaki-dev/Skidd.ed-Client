@@ -2,7 +2,6 @@ package skiddedclient.module.world;
 
 import net.minecraft.item.Items;
 import net.minecraft.util.Hand;
-import net.minecraft.util.TimeHelper;
 import skiddedclient.module.Mod;
 import skiddedclient.module.settings.BooleanSetting;
 import skiddedclient.module.settings.NumberSetting;
@@ -11,8 +10,6 @@ public class FastXP extends Mod {
 	
 	public NumberSetting delay = new NumberSetting("Delay", 0, 1, 0, 0.1);
 	public BooleanSetting swap = new BooleanSetting("Switch Item", true);
-	
-	TimeHelper timer = new TimeHelper();
 	
 	public FastXP() {
 		super("FastXP", "Throw exp pots at the speed of sound", Category.WORLD);

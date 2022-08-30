@@ -22,7 +22,7 @@ public class HoleESP extends Mod {
 	public BooleanSetting mixed = new BooleanSetting("Mixed", true);
 	public BooleanSetting obi = new BooleanSetting("Obsidian", true);
 
-	public BooleanSetting out = new BooleanSetting("Outline", true);
+	public BooleanSetting out = new BooleanSetting("Outline", false);
 	public BooleanSetting fill = new BooleanSetting("Fill", true);
 	
 	private Map<BlockPos, float[]> holes = new HashMap<>();
