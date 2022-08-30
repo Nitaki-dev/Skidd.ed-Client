@@ -580,4 +580,20 @@ public class RenderUtils {
 		         double minZ = blockPos.getZ() - mc.getEntityRenderDispatcher().camera.getPos().z;
 		         return new Vec3d(minX, minY, minZ);
 			 }
+
+			 public static void drawLine3D(MatrixStack matrixStack, Vec3d pos, Vec3d pos2, Color color) {
+					Matrix4f matrix = matrixStack.peek().getPositionMatrix();
+					BufferBuilder bufferBuilder = Tessellator.getInstance().getBuffer();
+					RenderSystem.setShader(GameRenderer::getPositionShader);
+					RenderSystem.setShaderColor(255, 0, 0, 1.0f);
+
+					bufferBuilder.begin(VertexFormat.DrawMode.DEBUG_LINES, VertexFormats.POSITION);
+					{
+						bufferBuilder.vertex(matrix, (float) pos.x, (float) pos.y, (float) pos.z).next();
+						bufferBuilder.vertex(matrix, (float) pos2.x, (float) pos2.y, (float) pos2.z).next();
+					}
+					bufferBuilder.end();
+					BufferRenderer.drawWithShader(bufferBuilder.end()); 
+			 }
+			    
 }
