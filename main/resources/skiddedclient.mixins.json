@@ -7,9 +7,11 @@
   ],
   "client": [
     "BlockRender",
+    "ChunkAccessor",
     "ClientConnectionMixin",
     "ClientPlayerEntityMixin",
     "ClientPlayerInteractionManagerMixin",
+    "ClientPlayNetworkHandlerAccessor",
     "EndCrystalEntityRendererMixin",
     "IClientPlayerInteractionManagerMixin",
     "InGameHudMixin",
