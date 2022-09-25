@@ -12,7 +12,7 @@ import java.lang.reflect.Method;
  */
 public class ReflectionHelper {
     @SuppressWarnings("unchecked")
-	public static <T> T getPrivateValue(Class<?> clazz, Object object, String... names) {
+    public static <T> T getPrivateValue(Class<?> clazz, Object object, String... names) {
         Field field = getField(clazz, names);
         field.setAccessible(true);
 
@@ -50,7 +50,7 @@ public class ReflectionHelper {
     }
 
     @SuppressWarnings("unchecked")
-	public static <T> T callPrivateMethod(Class<?> clazz, Object object, String[] names, Object... args) {
+    public static <T> T callPrivateMethod(Class<?> clazz, Object object, String[] names, Object... args) {
         // grab classes of args
         Class<?>[] classes = new Class<?>[]{};
         for(int i = 0; i < args.length; i++) classes[i] = args[i].getClass();

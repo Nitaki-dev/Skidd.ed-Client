@@ -8,7 +8,7 @@ import com.google.common.collect.Lists;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
-
+import net.minecraft.network.packet.c2s.play.PlayerMoveC2SPacket;
 import net.minecraft.util.Hand;
 import skiddedclient.module.Mod;
 import skiddedclient.module.settings.BooleanSetting;
@@ -64,8 +64,16 @@ public class Killaura extends Mod {
                         			RotationUtils.setSilentYaw(yaw);
                         		}
                                 if (cooldown.isEnabled() ? mc.player.getAttackCooldownProgress(0.5F) == 1 : true) {
+                                	
+                                	double posX = mc.player.getX();
+                            		double posY = mc.player.getY();
+                               		double posZ = mc.player.getZ();
+                        		    mc.player.networkHandler.sendPacket(new PlayerMoveC2SPacket.PositionAndOnGround(posX, posY + 0.0633, posZ, false));
+                        		    mc.player.networkHandler.sendPacket(new PlayerMoveC2SPacket.PositionAndOnGround(posX, posY, posZ, false));
+                        		    
 //                                	if (targets.get(0) != null) mc.inGameHud.getChatHud().addMessage(Text.literal("[Skidd.ed] " + targets.get(0).getHealth() + ""));
-                                    mc.interactionManager.attackEntity(mc.player, targets.get(0));
+                        		    
+                                	mc.interactionManager.attackEntity(mc.player, targets.get(0));
                             		mc.player.swingHand(Hand.MAIN_HAND);
                             		resetRotation();
                                 }

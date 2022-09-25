@@ -19,6 +19,7 @@ package skiddedclient.utils.player;
 import net.minecraft.block.AirBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
 import net.minecraft.block.HopperBlock;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayerEntity;
@@ -292,7 +293,7 @@ public class PlayerUtils {
     		mc.player.setPosition(endPos.getX(), endPos.getY(), endPos.getZ());
     	}
     }
-	
+
 	public static void blinkToPos(Vec3d startPos, final BlockPos endPos, final double slack, final double[] pOffset) {
         double curX = startPos.x;
         double curY = startPos.y;
@@ -362,6 +363,10 @@ public class PlayerUtils {
 
         }
     }
+	
+	 public static boolean isCollidable(final Block block) {
+	        return block != Blocks.AIR && block != Blocks.BEETROOTS && block != Blocks.CARROTS && block != Blocks.LAVA && block != Blocks.MELON_STEM && block != Blocks.NETHER_WART && block != Blocks.POTATOES && block != Blocks.PUMPKIN_STEM && block != Blocks.RED_MUSHROOM && block != Blocks.REDSTONE_TORCH  && block != Blocks.TORCH && block != Blocks.VINE && block != Blocks.WATER && block != Blocks.COBWEB && block != Blocks.WHEAT;
+	    }
 	
 	public static double distanceTo(Entity entity) {
         return distanceTo(entity.getX(), entity.getY(), entity.getZ());

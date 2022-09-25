@@ -10,6 +10,7 @@ package skiddedclient.module.render;
 //
 //
 //
+import java.awt.Color;
 
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.util.math.MatrixStack;
@@ -18,30 +19,33 @@ import net.minecraft.util.math.Vec3d;
 import skiddedclient.event.events.EventRender3D;
 import skiddedclient.module.Mod;
 import skiddedclient.module.settings.ModeSetting;
-import skiddedclient.module.settings.PasteSetting;
-import skiddedclient.utils.render.ColorUtils;
+import skiddedclient.module.settings.NumberSetting;
 import skiddedclient.utils.render.RenderUtils;
+
 public class ESP extends Mod {
 
 	public static ModeSetting mode = new ModeSetting("Mode", "Rect", "Rect", "Box");
-	public PasteSetting color = new PasteSetting("Color", false);
+
+	public NumberSetting red = new NumberSetting("Color",  0, 255, 255, 1);
+	public NumberSetting blue = new NumberSetting("Color",  0, 255, 0, 1);
+	public NumberSetting green = new NumberSetting("Color",  0, 255, 0, 1);
+	
 
 	public ESP() {
 		super("ESP", "Renders a rect/box around entities", Category.RENDER);
-		addSettings(mode, color);
+		addSettings(mode, red,green,blue);
 	}
 	
-	@SuppressWarnings("static-access")
 	@Override
 	public void onWorldRender(MatrixStack matrices) {
 		if (this.isEnabled()) {
 			for (Entity entity  : mc.world.getEntities()) {
 				if (!(entity instanceof ClientPlayerEntity)) {
 					if (mode.is("Rect")) {
-						RenderUtils.renderOutlineRect(entity, ColorUtils.hexToRgb(color.checked), matrices);
+						RenderUtils.renderOutlineRect(entity, new Color(red.getValueInt(), blue.getValueInt(), green.getValueInt()), matrices);
 					}
 					Vec3d renderPos = RenderUtils.getEntityRenderPosition(entity, EventRender3D.getTickDelta());
-					if (mode.is("Box")) RenderUtils.drawEntityBox(matrices, entity, renderPos.x, renderPos.y, renderPos.z, ColorUtils.hexToRgb(color.checked));
+					if (mode.is("Box")) RenderUtils.drawEntityBox(matrices, entity, renderPos.x, renderPos.y, renderPos.z, new Color(red.getValueInt(), blue.getValueInt(), green.getValueInt()));
 				}
 			}
 		}

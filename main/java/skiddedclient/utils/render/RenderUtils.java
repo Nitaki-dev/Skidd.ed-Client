@@ -595,5 +595,34 @@ public class RenderUtils {
 					bufferBuilder.end();
 					BufferRenderer.drawWithShader(bufferBuilder.end()); 
 			 }
-			    
+			 
+			 public static void drawBoxOutline1(Box box, QuadColor color, float lineWidth, Direction... excludeDirs) {
+					if (!getFrustum().isVisible(box)) {
+						return;
+					}
+
+					setup3DRender(true);
+
+					MatrixStack matrices = matrixFrom(box.minX, box.minY, box.minZ);
+
+					Tessellator tessellator = Tessellator.getInstance();
+					BufferBuilder buffer = tessellator.getBuffer();
+
+					// Outline
+					RenderSystem.disableCull();
+					RenderSystem.setShader(GameRenderer::getRenderTypeLinesShader);
+					RenderSystem.lineWidth(lineWidth);
+
+					buffer.begin(VertexFormat.DrawMode.LINES, VertexFormats.LINES);
+					Vertexer.vertexBoxLines(matrices, buffer, Boxes.moveToZero(box), color, excludeDirs);
+					tessellator.draw();
+
+					RenderSystem.enableCull();
+
+					end3DRender();
+				}
+			 
+				public static void drawBoxOutline1(BlockPos blockPos, QuadColor color, float lineWidth, Direction... excludeDirs) {
+					drawBoxOutline1(new Box(blockPos), color, lineWidth, excludeDirs);
+				}
 }

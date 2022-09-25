@@ -29,7 +29,7 @@ public class Hud {
 	@SuppressWarnings("unused")
 	public static void renderArrayList(MatrixStack matrices) {
 		if (mc.player.currentScreenHandler == null) {
-			customFont.draw(matrices, "Skidd.ed", 11, 2, -1, false);
+			customFont.drawWithShadow(matrices, "Skidd.ed", 11, 2, -1, false);
 			RenderUtils.renderRoundedQuad(matrices, new Color(32,32,32), 10, 7, 55, 19, 3, 20);
 		}
 
@@ -50,7 +50,6 @@ public class Hud {
 //			DrawableHelper.fill(matrices, sWidth-3, fHeight-fHeight, sWidth, fHeight*index+14, -1);
 //			DrawableHelper.fill(matrices, sWidth, 9, sWidth - 2,  20 + (index * 13), -1);
 
-			
 		index++;
 		}
 	}
@@ -75,9 +74,10 @@ public class Hud {
 
 			if (target != null) {
 				RenderUtils.renderRoundedQuad(matrices, new Color(41,41,41), 10+sWidth/2, 10+sHeight/2, 10+sWidth/2+70, 5+sHeight/2+40, 5, 10);
-				mc.textRenderer.drawWithShadow(matrices, target.getName(), 10+sWidth/2+6, 10+sHeight/2+5, -1);
+				customFont.draw(matrices, target.getName().getString(), (int) 10+sWidth/2+5, (int) 10+sHeight/2-2, -1, false);
 				RenderUtils.renderRoundedQuad(matrices, new Color(24,24,24), 10+sWidth/2+5, 10+sHeight/2+18, 10+sWidth/2+65, 10+sHeight/2 + 28, 3, 10);
 				RenderUtils.renderRoundedQuad(matrices, new Color(249,125,1), 10+sWidth/2+5, 10+sHeight/2+18, 10+sWidth/2 + (target.getHealth()*3) + 5, 10+sHeight/2+ 28, 3, 10);
+				customFont.draw(matrices, "" + (int) target.getHealth(), (int) 17+sWidth/2, (int) 22+sHeight/2, -1, false);
 			}
 		}
 	}

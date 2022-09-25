@@ -8,15 +8,16 @@ import skiddedclient.module.settings.NumberSetting;
 public class AutoSoup extends Mod {
 
 	NumberSetting health = new NumberSetting("Min health", 1, 20, 6, 1);
-	BooleanSetting instantEat = new BooleanSetting("IntaEat", false);
+	BooleanSetting instantEat = new BooleanSetting("InstantEat", false);
 	BooleanSetting hungry = new BooleanSetting("Hunger", true);
 	BooleanSetting swap = new BooleanSetting("Swap", true);
 	
 	public AutoSoup() {
-		super("AutoSoup", "Autoeat soup", Category.MOVEMENT);
+		super("AutoSoup", "Autoeat soup", Category.COMBAT);
 		addSettings(health, instantEat, hungry, swap);
 	}
 	int cooldown = 42;
+	int cooldown2 = 5;
 	@Override
 	public void onTick() {
 		if (this.isEnabled()) {
@@ -24,12 +25,15 @@ public class AutoSoup extends Mod {
 				if (mc.player.getHealth() < health.getValue() && mc.player.getHungerManager().isNotFull()) {
 					if (mc.player.getMainHandStack().getItem() == Items.MUSHROOM_STEW) {
 						
-						mc.options.useKey.setPressed(true);
-						if (instantEat.isEnabled()) mc.options.useKey.setPressed(false);
-						else if (!instantEat.isEnabled() && cooldown<0) {
-							mc.options.useKey.setPressed(false);
-							cooldown=42;
-						}
+//						mc.options.useKey.setPressed(true);
+//						if (instantEat.isEnabled() && cooldown2<0) { 
+//							mc.options.useKey.setPressed(false); 
+//							cooldown2=5;
+//						}
+//						else if (!instantEat.isEnabled() && cooldown<0) {
+//							mc.options.useKey.setPressed(false);
+//							cooldown=42;
+//						}
 						
 					} else if (mc.player.getMainHandStack().getItem() != Items.MUSHROOM_STEW && swap.isEnabled()) {
 						int soupSlot = mc.player.getInventory().getSlotWithStack(Items.MUSHROOM_STEW.getDefaultStack());
@@ -40,13 +44,14 @@ public class AutoSoup extends Mod {
 				if (mc.player.getHealth() < health.getValue()) {
 					if (mc.player.getMainHandStack().getItem() == Items.MUSHROOM_STEW) {
 						
-						mc.options.useKey.setPressed(true);
-						if (instantEat.isEnabled()) mc.options.useKey.setPressed(false);
-						else if (!instantEat.isEnabled() && cooldown<0) {
-							mc.options.useKey.setPressed(false);
-							cooldown=42;
-						}
+//						mc.options.useKey.setPressed(true);
+//						if (instantEat.isEnabled()) mc.options.useKey.setPressed(false);
+//						else if (!instantEat.isEnabled() && cooldown<0) {
+//							mc.options.useKey.setPressed(false);
+//							cooldown=42;
+//						}
 						
+
 					} else if (mc.player.getMainHandStack().getItem() != Items.MUSHROOM_STEW && swap.isEnabled()) {
 						int soupSlot = mc.player.getInventory().getSlotWithStack(Items.MUSHROOM_STEW.getDefaultStack());
 						if (soupSlot != -1) mc.player.getInventory().selectedSlot = soupSlot;
@@ -55,6 +60,7 @@ public class AutoSoup extends Mod {
 			}
 
 		}
+		cooldown2--;
 		cooldown--;
 		super.onTick();
 	}

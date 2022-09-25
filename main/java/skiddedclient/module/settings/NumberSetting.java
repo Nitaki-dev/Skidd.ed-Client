@@ -24,7 +24,7 @@ public class NumberSetting extends Setting{
 	}
 	
 	public double getValueFloat() {
-		return (float)value;
+		return (float) value;
 	}
 	
 	public int getValueInt() {
