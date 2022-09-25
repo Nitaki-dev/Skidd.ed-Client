@@ -1,6 +1,5 @@
 package skiddedclient.ui.screens.clickGUI;
 
-import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,6 +9,7 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
 import skiddedclient.module.Mod;
 import skiddedclient.module.Mod.Category;
+import skiddedclient.module.render.GUI;
 import skiddedclient.module.ModuleManager;
 import skiddedclient.ui.screens.clickGUI.setting.ColorBox;
 import skiddedclient.ui.screens.clickGUI.setting.Component;
@@ -51,11 +51,12 @@ public class Frame {
 	
 	int length = 0;
 	float animTicks = 0;
+	@SuppressWarnings("static-access")
 	public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
 		
-		RenderUtils.renderRoundedQuad(matrices, new Color(38,38,38), x, y, x + width, y + height, 3, 100);
+		RenderUtils.renderRoundedQuad(matrices, ModuleManager.INSTANCE.getModule(GUI.class).MainColor, x, y, x + width, y + height, ModuleManager.INSTANCE.getModule(GUI.class).rounded.getValue(), 100);
 		if (this.extended) {
-			DrawableHelper.fill(matrices, x, y+8, x + width, y + height, 0xff262626);
+			DrawableHelper.fill(matrices, x, y+8, x + width, y + height, ModuleManager.INSTANCE.getModule(GUI.class).MainColorRGB);
 
 		}
 		int offsetY2 = (int) ((height / 2) - mc.textRenderer.fontHeight / 2);
@@ -150,24 +151,6 @@ public class Frame {
 			}
 		}
 	}
-	
-//	public void updateButton() {
-//		int offset = height ;
-//		
-//		for (ModuleButton button : buttons) {
-//			
-//			button.setY(this.y + offset);
-//			button.setX(this.getX());
-//			offset+=height;
-//			
-//			if (button.isExtended()) {
-//				for (Component component : button.components) {
-//					if (component.setting.inVisible()) offset+=(component instanceof ColorBox ? height * (((ColorBox)component).open ? 7.5f : 1) : height); 
-//				}
-//			}
-//			
-//		}
-//	}
 	
 	public void keyPressed(int key) {
         for (ModuleButton mb : buttons) {

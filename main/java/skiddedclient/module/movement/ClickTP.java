@@ -65,11 +65,9 @@ public class ClickTP extends Mod {
         BlockPos dest = new BlockPos(d.getX() + 0.5, d.getY(), d.getZ() + 0.5);
         dest = dest.offset(Direction.UP, 1);
         
-        if (mode.getMode().equalsIgnoreCase("Normal")) mc.player.updatePosition(dest.getX()+0.5, dest.getY(), dest.getZ()+0.5);
-        
-//        Client.INSTANCE.logger.info("X: " + (dest.getX()+0.5) + " Y: " +  dest.getY() + " Z: " + (dest.getZ()+0.5));
-        
-        if (mode.getMode().equalsIgnoreCase("Split")) {
+        if (mode.getMode().equalsIgnoreCase("Normal") && mc.player != null) mc.player.updatePosition(dest.getX()+0.5, dest.getY(), dest.getZ()+0.5);
+                
+        if (mode.getMode().equalsIgnoreCase("Split") && mc.player != null) {
         	mc.player.jump();
         	ClientPlayerEntity player = mc.player;
         	Vec3d playerpos = player.getPos();

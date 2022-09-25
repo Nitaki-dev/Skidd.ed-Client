@@ -20,12 +20,12 @@ import skiddedclient.utils.RotationUtils;
 
 public class Scaffold extends Mod {
 	
-	public ModeSetting mode = new ModeSetting("Mode", "Extend", "Extend");
+	public ModeSetting mode = new ModeSetting("Mode", "Extend", "Extend", "Rotation");
 	public NumberSetting extend = new NumberSetting("Extend",  0, 5, 3, 1);
 	
     public Scaffold() {
         super("Scaffold", "fuck you bedlessnoobs", Category.WORLD);
-        addSettings(extend);
+        addSettings(mode, extend);
     }
 
 	@Override
@@ -73,6 +73,21 @@ public class Scaffold extends Mod {
         			
         		}
         	}
+		} else if (mode.is("Rotation")) {
+	    	int original_slot = mc.player.getInventory().selectedSlot;
+	    	
+	        for (int i = 0; i < 9; i++) {
+	            if (mc.player.getInventory().getStack(i).getItem() instanceof BlockItem)
+	                mc.player.getInventory().selectedSlot = i;
+	        }
+	        if (mc.player == null || mc.world == null) {onDisable(); return;}
+	        BlockPos pos = mc.player.getBlockPos().down();
+	        if (mc.world.getBlockState(pos).getMaterial().isReplaceable()) {
+	            mc.interactionManager.interactBlock(mc.player, Hand.MAIN_HAND, new BlockHitResult(Vec3d.of(pos), Direction.DOWN, pos, false));
+	            mc.player.swingHand(Hand.MAIN_HAND);
+	        }
+	        
+	        mc.player.getInventory().selectedSlot = original_slot;
 		}
 		super.onTick();
     }

@@ -51,45 +51,52 @@ public class ModuleManager {
 	}
 	
 	private void addModules() {
-		modules.add(new FakeGMode());
+		modules.add(new AutoRespawn());
 		modules.add(new ElytraReplace());
-		modules.add(new ExampleModule());
 		modules.add(new ChestStealer());
-		modules.add(new CrystalAura());
-		modules.add(new FakePlayer());
+		modules.add(new BlockOutline());
 		modules.add(new LavaBounce());
+		modules.add(new FakeGMode());
+		modules.add(new ExampleModule());
+		modules.add(new CrystalAura());
+		modules.add(new AutoArmor());
+		modules.add(new FakePlayer());
 		modules.add(new TargetHud());
 		modules.add(new FastClimb());
+		modules.add(new AutoWalk());
 		modules.add(new Fullbright());
-		modules.add(new AutoArmor());
-		modules.add(new IceSpeed());
+		modules.add(new AutoTotem());
 		modules.add(new AutoSoup());
-		modules.add(new HoleESP());
+		modules.add(new Surround());
+		modules.add(new IceSpeed());
 		modules.add(new ElytraFly());
-//		modules.add(new Freecam()); FIX THIS
+		modules.add(new GUI());
+		modules.add(new HoleESP());
 		modules.add(new AirJump());
 		modules.add(new Scaffold());
-		modules.add(new Jetpack());
 		modules.add(new InvWalk());
+		modules.add(new Jetpack());
+		modules.add(new FastUse());
 		modules.add(new BoatFly());
 		modules.add(new Killaura());
 		modules.add(new ClickTP());
-		modules.add(new Trigger());
+		modules.add(new NoFall());
 		modules.add(new Tracers());
+		modules.add(new Trigger());
 		modules.add(new FastXP());
 		modules.add(new Spider());
-		modules.add(new NoFall());
-		modules.add(new Reach());
-		modules.add(new Nuker());
 		modules.add(new Sprint());
+		modules.add(new Reach());
 		modules.add(new Flight());
-		modules.add(new Strafe());
+		modules.add(new Nuker());
 		modules.add(new Timer());
+		modules.add(new Strafe());
 		modules.add(new Jesus());
 		modules.add(new XRay());
 		modules.add(new Step());
 		modules.add(new ESP());
-		//36 Modules
+
+		//43 Modules
 	}
 
 	public Mod getModuleByName(String moduleName) {

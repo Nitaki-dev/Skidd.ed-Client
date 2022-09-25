@@ -27,30 +27,28 @@ import net.minecraft.util.math.Vec2f;
 import net.minecraft.util.math.Vec3d;
 import skiddedclient.module.Mod;
 import skiddedclient.module.settings.BooleanSetting;
-import skiddedclient.module.settings.PasteSetting;
-import skiddedclient.utils.render.ColorUtils;
+import skiddedclient.module.settings.NumberSetting;
 import skiddedclient.utils.render.RenderUtils;
 
 public class Tracers extends Mod {
 	
 	public BooleanSetting players = new BooleanSetting("Players", true);
-	public PasteSetting playersColor = new PasteSetting("Color", false);
 	
 	public BooleanSetting monsters = new BooleanSetting("Monsters", true);
-	public PasteSetting monstersColor = new PasteSetting("Color", false);
 	
 	public BooleanSetting animals = new BooleanSetting("Animals", true);
-	public PasteSetting animalsColor = new PasteSetting("Color", false);
 	
 	public BooleanSetting passives = new BooleanSetting("Passives", true);
-	public PasteSetting passivesColor = new PasteSetting("Color", false);
 	
 	public BooleanSetting invisibles = new BooleanSetting("Invisibles", true);
-	public PasteSetting invisiblesColor = new PasteSetting("Color", false);
-
+	
+	public NumberSetting red = new NumberSetting("Color",  0, 255, 255, 1);
+	public NumberSetting blue = new NumberSetting("Color",  0, 255, 0, 1);
+	public NumberSetting green = new NumberSetting("Color",  0, 255, 0, 1);
+	
 	public Tracers() {
 		super("Tracers", "Draws a line from the cursor to every entities", Category.RENDER);
-		addSettings(players,playersColor, monsters,monstersColor, animals,animalsColor, passives,passivesColor, invisibles,invisiblesColor);
+		addSettings(players, monsters, animals, passives, invisibles, red,green,blue);
 	}
     
 	@Override
@@ -93,14 +91,13 @@ public class Tracers extends Mod {
 		return false;
 	}
 	
-	@SuppressWarnings("static-access")
 	public Color getEntityColor(Entity entity) {
-		if (entity instanceof PlayerEntity) return ColorUtils.hexToRgb(playersColor.checked);
-		if (entity instanceof Monster) return ColorUtils.hexToRgb(monstersColor.checked);
-		if (entity instanceof AnimalEntity) return ColorUtils.hexToRgb(animalsColor.checked);
-		if (entity instanceof PassiveEntity) return ColorUtils.hexToRgb(passivesColor.checked);
-		if (entity.isInvisible()) return ColorUtils.hexToRgb(invisiblesColor.checked);
+		if (entity instanceof PlayerEntity) return new Color(red.getValueInt(), blue.getValueInt(), green.getValueInt());
+		if (entity instanceof Monster) return new Color(red.getValueInt(), blue.getValueInt(), green.getValueInt());
+		if (entity instanceof AnimalEntity) return new Color(red.getValueInt(), blue.getValueInt(), green.getValueInt());
+		if (entity instanceof PassiveEntity) return new Color(red.getValueInt(), blue.getValueInt(), green.getValueInt());
+		if (entity.isInvisible()) return new Color(red.getValueInt(), blue.getValueInt(), green.getValueInt());
 		
-		return new Color(255, 255, 255);
+		return new Color(255, 0, 0);
 	}
 }

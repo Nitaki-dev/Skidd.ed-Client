@@ -48,7 +48,7 @@ public class ColorBox extends Component {
 	@Override
 	public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
 //		offset = parent.offset+getHeight(parent.parent.width);
-		offset=75;
+		offset=120;
 //		System.out.println(parent.parent.height);
 //		offset += /*parent.parent.height*/parent.module.getSetting().size()/parent.parent.height;
 //		offset += parent.parent.height;
@@ -79,6 +79,7 @@ public class ColorBox extends Component {
 			return;
 		}
 		RenderUtils.fill(matrices, sx + 3 + (int)fontSmall.getStringWidth(colorSet.name + colorSet.getHex().toUpperCase(), false) + 17, sy - 4, sx + 27 + (int)fontSmall.getStringWidth(colorSet.name + colorSet.getHex().toUpperCase(), false), sy - 12, new Color(0, 0, 0, 200).getRGB());
+		//white
 		RenderUtils.fill(matrices, sx, sy, ex, ey, -1);
 		int satColor = MathHelper.hsvToRgb(colorSet.hue, 1f, 1f);
 		int red = satColor >> 16 & 255;
