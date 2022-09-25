@@ -70,6 +70,7 @@ public class ModuleManager {
 		modules.add(new Surround());
 		modules.add(new IceSpeed());
 		modules.add(new ElytraFly());
+		modules.add(new BlockESP());
 		modules.add(new GUI());
 		modules.add(new HoleESP());
 		modules.add(new AirJump());

@@ -28,6 +28,7 @@ import net.minecraft.block.FenceGateBlock;
 import net.minecraft.block.NoteBlock;
 import net.minecraft.block.ShapeContext;
 import net.minecraft.block.TrapdoorBlock;
+import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.OtherClientPlayerEntity;
 import net.minecraft.client.network.PlayerListEntry;
@@ -150,6 +151,10 @@ public class WorldUtils {
         return cube.stream().filter(pos -> mc.player.squaredDistanceTo(new Vec3d(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ())) <= 18.0625).collect(Collectors.toList());
     }
 
+    public static Iterable<BlockEntity> blockEntities() {
+        return BlockEntityIterator::new;
+    }
+    
     //Credit to KAMI for code below
     public static double[] calculateLookAt(double px, double py, double pz, PlayerEntity me) {
         double dirx = me.getX() - px;
