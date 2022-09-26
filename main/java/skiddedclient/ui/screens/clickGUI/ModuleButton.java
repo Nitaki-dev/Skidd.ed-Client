@@ -89,7 +89,7 @@ public class ModuleButton {
 
 			speed+=0.5;
 		} else {
-			if (speed>0)speed--;
+			if (speed>0)speed-=0.5;
 		}
 		
 		if (speed>4.0)speed=4;

@@ -45,11 +45,13 @@ public class CheckBox extends Component {
 		int offsetY = ((parent.parent.height / 2) - mc.textRenderer.fontHeight / 2);
 		
 		if (boolSet.isEnabled()) {
-			DrawableHelper.fill(matrices, (parent.parent.x + offsetY) + 89, (parent.parent.y + parent.offset + offset + offsetY) + 1, parent.parent.x + offsetY + 71, parent.parent.y + parent.offset + offset + offsetY + 9, new Color(249,125,1).getRGB());
-			DrawableHelper.fill(matrices, (parent.parent.x + offsetY) + 87, (parent.parent.y + parent.offset + offset + offsetY) + 3, parent.parent.x + offsetY + 83, parent.parent.y + parent.offset + offset + offsetY + 7, 0xff262626);
+			RenderUtils.renderRoundedQuad(matrices, ModuleManager.INSTANCE.getModule(GUI.class).MainColorEnabled, (parent.parent.x + offsetY) + 77, (parent.parent.y + parent.offset + offset + offsetY) + 1, parent.parent.x + offsetY + 94, parent.parent.y + parent.offset + offset + offsetY + 9, 1, 100);
+			RenderUtils.renderRoundedQuad(matrices, ModuleManager.INSTANCE.getModule(GUI.class).MainColor, (parent.parent.x + offsetY) + 87, (parent.parent.y + parent.offset + offset + offsetY) + 2, parent.parent.x + offsetY + 93, parent.parent.y + parent.offset + offset + offsetY + 8, 1, 100);
+
+//			DrawableHelper.fill(matrices, (parent.parent.x + offsetY) + 87, (parent.parent.y + parent.offset + offset + offsetY) + 3, parent.parent.x + offsetY + 83, parent.parent.y + parent.offset + offset + offsetY + 7, ModuleManager.INSTANCE.getModule(GUI.class).MainColorRGB);
 		} if (!boolSet.isEnabled()) {
-			DrawableHelper.fill(matrices, (parent.parent.x + offsetY) + 89, (parent.parent.y + parent.offset + offset + offsetY) + 1, parent.parent.x + offsetY + 71, parent.parent.y + parent.offset + offset + offsetY + 9, new Color(70, 70, 70).getRGB());
-			DrawableHelper.fill(matrices, (parent.parent.x + offsetY) + 73, (parent.parent.y + parent.offset + offset + offsetY) + 3, parent.parent.x + offsetY + 77, parent.parent.y + parent.offset + offset + offsetY + 7, 0xff262626);
+			RenderUtils.renderRoundedQuad(matrices, new Color(70,70,70), (parent.parent.x + offsetY) + 77, (parent.parent.y + parent.offset + offset + offsetY) + 1, parent.parent.x + offsetY + 94, parent.parent.y + parent.offset + offset + offsetY + 9, 1, 100);
+			RenderUtils.renderRoundedQuad(matrices, ModuleManager.INSTANCE.getModule(GUI.class).MainColor, (parent.parent.x + offsetY) + 78, (parent.parent.y + parent.offset + offset + offsetY) + 2, parent.parent.x + offsetY + 84, parent.parent.y + parent.offset + offset + offsetY + 8, 1, 100);
 		}
 		
 		customFont.draw(matrices, "| " + boolSet.getName(), parent.parent.x + offsetY, parent.parent.y + parent.offset + offset + offsetY-6, 0xff747474, false);

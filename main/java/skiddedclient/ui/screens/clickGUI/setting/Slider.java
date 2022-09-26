@@ -15,6 +15,7 @@ import skiddedclient.module.settings.NumberSetting;
 import skiddedclient.module.settings.Setting;
 import skiddedclient.ui.screens.clickGUI.ModuleButton;
 import skiddedclient.utils.font.FontRenderer;
+import skiddedclient.utils.render.RenderUtils;
 
 @SuppressWarnings("unused")
 public class Slider extends Component {
@@ -48,18 +49,25 @@ public class Slider extends Component {
 		
 		if (numSet.getMax()!=360) {
 			DrawableHelper.fill(matrices, X1, Y1, parent.parent.x + parent.parent.width, Y2, ModuleManager.INSTANCE.getModule(GUI.class).MainColorRGB);
-			DrawableHelper.fill(matrices, X1, Y1, parent.parent.x + renderWidth, Y2, ModuleManager.INSTANCE.getModule(GUI.class).MainColorEnabledRGB);//0xff8a00cb
+			DrawableHelper.fill(matrices, X1, Y1+2, parent.parent.x + renderWidth, Y2-2, ModuleManager.INSTANCE.getModule(GUI.class).MainColorEnabledRGB);//0xff8a00cb
 			
 		} else if (numSet.getMax()==360) {
-			
+
+			DrawableHelper.fill(matrices, X1, Y1, parent.parent.x + parent.parent.width, Y2, ModuleManager.INSTANCE.getModule(GUI.class).MainColorRGB);
+
 			int f1=parent.parent.x+100,
 					f2=parent.parent.x;
 			
 			for (int i = (parent.parent.x); i < (parent.parent.x+100); i++) {
 				float curHue = 1f / ((float) (f1 - f2) / (i - f2));
-				DrawableHelper.fill(matrices, i, Y1, i+1, Y2, 0xff000000 | MathHelper.hsvToRgb(curHue, 1f, 1f));
-				DrawableHelper.fill(matrices, parent.parent.x+renderWidth-1, Y1, parent.parent.x+renderWidth+1, Y2, 0xff181818);
+				DrawableHelper.fill(matrices, X1, Y1, X1+2, Y2-2, ModuleManager.INSTANCE.getModule(GUI.class).MainColorRGB);
 				
+				DrawableHelper.fill(matrices, i, Y1+3, i+1, Y2-2, 0xff000000 | MathHelper.hsvToRgb(curHue, 1f, 1f));
+				if (numSet.getValue()!=numSet.getMax() && numSet.getValue()!=numSet.getMin()) {
+					DrawableHelper.fill(matrices, parent.parent.x+renderWidth-1, Y1, parent.parent.x+renderWidth+1, Y2, ModuleManager.INSTANCE.getModule(GUI.class).MainColorRGB);
+				}
+				
+				DrawableHelper.fill(matrices, X2-2, Y1, X2, Y2-2, ModuleManager.INSTANCE.getModule(GUI.class).MainColorRGB);
 //				float curHue2 = 1f/((float) (parent.parent.x+renderWidth-f2) / (i-f2));
 //				DrawableHelper.fill(matrices, X1, Y1+50, X2, Y2+50, MathHelper.hsvToRgb(curHue2, 1f, 1f));
 //				Client.logger.info(MathHelper.hsvToRgb(i-renderWidth, 1f, 1f));

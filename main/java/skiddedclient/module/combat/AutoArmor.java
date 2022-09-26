@@ -1,4 +1,4 @@
-package skiddedclient.module.world;
+package skiddedclient.module.combat;
 
 import skiddedclient.module.Mod;
 import skiddedclient.utils.player.InventoryUtils;
@@ -10,7 +10,7 @@ import net.minecraft.screen.slot.SlotActionType;
 public class AutoArmor extends Mod {
 
 	public AutoArmor() {
-		super("AutoArmor", "Equips armor for you", Category.WORLD);
+		super("AutoArmor", "Equips armor for you", Category.COMBAT);
 	}
 	
 	@Override

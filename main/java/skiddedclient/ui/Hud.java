@@ -12,7 +12,8 @@ import net.minecraft.util.hit.EntityHitResult;
 import net.minecraft.util.hit.HitResult;
 import skiddedclient.module.Mod;
 import skiddedclient.module.ModuleManager;
-import skiddedclient.module.render.TargetHud;
+import skiddedclient.module.combat.TargetHud;
+import skiddedclient.ui.screens.clickGUI.ClickGUI;
 import skiddedclient.utils.font.FontRenderer;
 import skiddedclient.utils.render.RenderUtils;
 
@@ -28,16 +29,18 @@ public class Hud {
 	
 	@SuppressWarnings("unused")
 	public static void renderArrayList(MatrixStack matrices) {
-		if (mc.player.currentScreenHandler == null) {
-			customFont.drawWithShadow(matrices, "Skidd.ed", 11, 2, -1, false);
-			RenderUtils.renderRoundedQuad(matrices, new Color(32,32,32), 10, 7, 55, 19, 3, 20);
-		}
+		if (mc.currentScreen != ClickGUI.INSTANCE) {
+		RenderUtils.renderRoundedQuad(matrices, new Color(12,12,12), 10, 7, 56, 19, 2, 100);
+		customFont.drawWithShadow(matrices, "Skidd.ed", 11, 7, -1, false);
+
+//		RenderUtils.renderRoundedQuad(matrices, new Color(0,255,255), 5, 50, 10+getPlayerSpeed(), 55, 2, 100);
 
 		int index = 0;
 		int sWidth = mc.getWindow().getScaledWidth();
 		int sHeight = mc.getWindow().getScaledHeight();
 		
 		List<Mod> enabled = ModuleManager.INSTANCE.getEnabledModules();
+		
 		
 		enabled.sort(Comparator.comparingInt(m -> (int)customFont.getStringWidth(((Mod)m).getDisplayName(), false)).reversed());
 
@@ -51,6 +54,7 @@ public class Hud {
 //			DrawableHelper.fill(matrices, sWidth, 9, sWidth - 2,  20 + (index * 13), -1);
 
 		index++;
+		}
 		}
 	}
 	
@@ -81,4 +85,12 @@ public class Hud {
 			}
 		}
 	}
+	
+	public static double getPlayerSpeed() {
+//        float currentTps = mc.getServer().getTickTime() / 1000.0f;
+        double dx = Math.abs(mc.player.getX() - mc.player.prevX);
+        double dz = Math.abs(mc.player.getZ() - mc.player.prevZ);
+//        return ((MathHelper.sqrt((float) (Math.pow(dirSpeed(Direction.Axis.X), 2) + Math.pow(dirSpeed(Direction.Axis.Z), 2))) / currentTps)) * 3.6;
+        return Math.sqrt(dx * dx + dz * dz) * 20 * 3.6;
+    }
 }

@@ -1,4 +1,4 @@
-package skiddedclient.module.render;
+package skiddedclient.module.combat;
 
 import skiddedclient.module.Mod;
 
