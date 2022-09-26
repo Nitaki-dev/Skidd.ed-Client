@@ -65,7 +65,6 @@ public class ModuleManager {
 		modules.add(new FastClimb());
 		modules.add(new AutoWalk());
 		modules.add(new Fullbright());
-		modules.add(new AutoTotem());
 		modules.add(new AutoSoup());
 		modules.add(new Surround());
 		modules.add(new IceSpeed());
@@ -97,7 +96,7 @@ public class ModuleManager {
 		modules.add(new Step());
 		modules.add(new ESP());
 
-		//43 Modules
+		//44 Modules
 	}
 
 	public Mod getModuleByName(String moduleName) {
