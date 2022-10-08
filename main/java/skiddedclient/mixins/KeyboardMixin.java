@@ -10,8 +10,6 @@ import skiddedclient.Client;
 
 @Mixin(Keyboard.class)
 public class KeyboardMixin {
-
-	@SuppressWarnings("static-access")
 	@Inject(method = "onKey", at = @At("HEAD"), cancellable = true)
 	public void onKey(long window, int key, int scancode, int action, int modifiers, CallbackInfo ci) {
 //		Client.INSTANCE.logger.info(key);

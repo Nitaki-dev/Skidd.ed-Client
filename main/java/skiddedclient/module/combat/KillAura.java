@@ -10,24 +10,26 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.network.packet.c2s.play.PlayerMoveC2SPacket;
 import net.minecraft.util.Hand;
+import net.minecraft.util.Identifier;
 import skiddedclient.module.Mod;
 import skiddedclient.module.settings.BooleanSetting;
 import skiddedclient.module.settings.ModeSetting;
 import skiddedclient.module.settings.NumberSetting;
 import skiddedclient.utils.RotationUtils;
+import skiddedclient.utils.font.FontRenderer;
 
-public class Killaura extends Mod {
+public class KillAura extends Mod {
     public static ArrayList<String> modes = new ArrayList<>();
+	protected static FontRenderer customFont = new FontRenderer("Montserrat.otf", new Identifier("skiddedclient", "fonts"), 20);
 
     public static ModeSetting mode = new ModeSetting("Mode", "Camera", "Camera", "Packet");
     public static ModeSetting rotationmode = new ModeSetting("Rotation", "Silent", "Silent", "Legit");
     public static NumberSetting range = new NumberSetting("Range", 3, 6, 4, 0.1);
     public static BooleanSetting cooldown = new BooleanSetting("Cooldown", true);
     public static ModeSetting priority = new ModeSetting("Priority", "Random", "Random", "Random");
-
     
-    public Killaura() {
-        super("Killaura", "Automatically attacks living entities for you", Category.COMBAT);
+    public KillAura() {
+        super("KillAura", "Automatically attacks living entities for you", Category.COMBAT);
         addSettings(mode, rotationmode, range, cooldown, priority);
     }
 
@@ -83,6 +85,7 @@ public class Killaura extends Mod {
 //                        	mc.inGameHud.getChatHud().addMessage(Text.literal("{[Skidd.ed] " + targets.get(0).getHealth() + "}"));
 //                          mc.getNetworkHandler().sendPacket(new PlayerMoveC2SPacket.LookAndOnGround((float) yaw, (float) pitch, mc.player.isOnGround()));
                         }
+                        if (mc.player.squaredDistanceTo(targets.get(0))>range.getValue()) resetRotation();
                     }
                 }
             }

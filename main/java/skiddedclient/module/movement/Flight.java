@@ -14,6 +14,7 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.PlayerListEntry;
 import net.minecraft.client.option.GameOptions;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.util.Formatting;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.GameMode;
 import skiddedclient.module.Mod;
@@ -40,8 +41,10 @@ public class Flight extends Mod {
 		addSettings(speed, mode);
 	}
 	
+	private static final Formatting Gray = Formatting.GRAY;
 	@Override
 	public void onTick() {
+		this.setDisplayName("Flight" + Gray + " ["+mode.getMode()+"]");
 		if (mc.player == null || mc.getNetworkHandler() == null) {
             return;
         }

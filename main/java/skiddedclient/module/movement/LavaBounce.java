@@ -11,12 +11,9 @@ public class LavaBounce extends Mod{
 	@Override
 	public void onTick() {
 		 if (mc.player.isInLava()) {
-	            mc.player.setVelocity(0, -1.5, 0);
-	        }
-		if(mc.player.isOnFire()) {
-			mc.player.setVelocity(0, 0.5, 0);
-			
-		}
+	            mc.player.addVelocity(0, 0.3, 0);
+	            mc.player.airStrafingSpeed = 0.3f;
+	     }
 		
 		super.onTick();
 	}

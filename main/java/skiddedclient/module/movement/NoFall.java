@@ -1,6 +1,7 @@
 package skiddedclient.module.movement;
 
 import net.minecraft.network.packet.c2s.play.PlayerMoveC2SPacket;
+import net.minecraft.util.Formatting;
 import skiddedclient.module.Mod;
 import skiddedclient.module.settings.ModeSetting;
 
@@ -12,9 +13,12 @@ public class NoFall extends Mod {
         super("NoFall", "Prevent you from taking fall damage", Category.MOVEMENT);
         addSetting(mode);
     }
-
-    @Override
-    public void onTick() {
+    
+    private static final Formatting Gray = Formatting.GRAY;
+    
+	@Override
+	public void onTick() {
+		this.setDisplayName("NoFall" + Gray + " ["+mode.getMode()+"]");
         if (mc.player == null || mc.getNetworkHandler() == null) {
             return;
         }
