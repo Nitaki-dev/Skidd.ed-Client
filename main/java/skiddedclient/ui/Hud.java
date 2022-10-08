@@ -5,6 +5,7 @@ import java.util.Comparator;
 import java.util.List;
 
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.gui.DrawableHelper;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.Identifier;
@@ -22,8 +23,6 @@ public class Hud {
 	
 	protected static FontRenderer customFont = new FontRenderer("Montserrat.otf", new Identifier("skiddedclient", "fonts"), 20);
 
-	
-	
 	public static void render(MatrixStack matrices,	 float tickDelta) {
 		renderArrayList(matrices);
 		if (ModuleManager.INSTANCE.getModule(TargetHud.class).isEnabled()) TargetHudRender(matrices);
@@ -31,31 +30,38 @@ public class Hud {
 	
 	@SuppressWarnings("unused")
 	public static void renderArrayList(MatrixStack matrices) {
-	if (mc.currentScreen != ClickGUI.INSTANCE) {
-		RenderUtils.renderRoundedQuad(matrices, new Color(12,12,12), 10, 7, 56, 19, 2, 100);
-		customFont.drawWithShadow(matrices, "Skidd.ed", 11, 7, -1, false);
-
-//		RenderUtils.renderRoundedQuad(matrices, new Color(0,255,255), 5, 50, 10+getPlayerSpeed(), 55, 2, 100);
-
-		int index = 0;
-		int sWidth = mc.getWindow().getScaledWidth();
-		int sHeight = mc.getWindow().getScaledHeight();
+		if (mc.currentScreen != ClickGUI.INSTANCE) {
+			RenderUtils.renderRoundedQuad(matrices, new Color(12,12,12), 10, 7, 56, 19, 2, 100);
+			customFont.drawWithShadow(matrices, "Skidd.ed", 11, 7, -1, false);
+			
+//			RenderUtils.renderRoundedQuad(matrices, new Color(0,255,255), 5, 50, 10+getPlayerSpeed(), 55, 2, 100);
+			
+			int index = 0;
+			int sWidth = mc.getWindow().getScaledWidth();
+			int sHeight = mc.getWindow().getScaledHeight();
+			
+			List<Mod> enabled = ModuleManager.INSTANCE.getEnabledModules();
+			
 		
-		List<Mod> enabled = ModuleManager.INSTANCE.getEnabledModules();
-		
-		
-		enabled.sort(Comparator.comparingInt(m -> (int)customFont.getStringWidth(((Mod)m).getDisplayName(), false)).reversed());
-
-		for (Mod mod : enabled) {
-			int fWidth = (int) customFont.getStringWidth(mod.getDisplayName(), false);
-			int fHeight = (int) customFont.getStringHeight(mod.getDisplayName(), false);
-			int offset = index*(fHeight);
-			int slideroption = 4;
-			customFont.draw(matrices, mod.getDisplayName(), sWidth-3-fWidth, ((fHeight)*(index))-4, -1, false);
-
-			index++;
+			enabled.sort(Comparator.comparingInt(m -> (int)customFont.getStringWidth(((Mod)m).getDisplayName(), false)).reversed());
+			
+			for (Mod mod : enabled) {
+				int fWidth = (int) customFont.getStringWidth(mod.getDisplayName(), false);
+				int fHeight = (int) customFont.getStringHeight(mod.getDisplayName(), false);
+				int offset = index*(fHeight);
+				int slideroption = 4;
+				DrawableHelper.fill(matrices
+						, sWidth - fWidth-5
+						, index*(fHeight)+1
+						, sWidth
+						, fHeight  + index*(fHeight)+1
+						, 0x70000000);
+				
+//				DrawableHelper.fill(matrices, sWidth-3-fWidth, 4+index, ((fHeight)*(index))+sWidth, fHeight*index, 0x70000000);
+				customFont.draw(matrices, mod.getDisplayName(), sWidth-3-fWidth, ((fHeight)*(index))-4, -1, false);
+				index++;
+			}
 		}
-	}
 	}
 	
 	static PlayerEntity target = null;

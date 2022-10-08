@@ -31,7 +31,7 @@ public class Slider extends Component {
 		this.numSet = (NumberSetting)setting;
 	}
 
-	@SuppressWarnings({ "static-access", "unused" })
+	@SuppressWarnings({ "static-access" })
 	@Override
 	public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
 		int sy = parent.parent.x,

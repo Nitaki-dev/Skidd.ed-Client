@@ -150,7 +150,6 @@ public class RotationUtils {
     private static class Rotation {
         public double yaw, pitch;
         public int priority;
-        @SuppressWarnings("unused")
 		public boolean clientSide;
         public Runnable callback;
 
@@ -162,7 +161,6 @@ public class RotationUtils {
             this.callback = callback;
         }
 
-        @SuppressWarnings("unused")
 		public void sendPacket() {
             mc.getNetworkHandler().sendPacket(new PlayerMoveC2SPacket.LookAndOnGround((float) yaw, (float) pitch, mc.player.isOnGround()));
             runCallback();

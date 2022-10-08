@@ -6,6 +6,7 @@ import net.minecraft.block.BlockState;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.util.Formatting;
 import net.minecraft.util.Hand;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
@@ -27,9 +28,11 @@ public class Scaffold extends Mod {
         super("Scaffold", "fuck you bedlessnoobs", Category.WORLD);
         addSettings(mode, extend);
     }
-
+    
+    private static final Formatting Gray = Formatting.GRAY;
 	@Override
 	public void onTick() {
+		this.setDisplayName("Scaffold" + Gray + " ["+mode.getMode()+"]");
 		if (mode.getMode().equalsIgnoreCase("Extend")) {
         	Vec3d ppos = Objects.requireNonNull(mc.player).getPos().add(0, -1, 0);
         	BlockPos bp = new BlockPos(ppos);
