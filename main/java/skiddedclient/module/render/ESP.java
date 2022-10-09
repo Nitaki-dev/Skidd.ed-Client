@@ -57,7 +57,6 @@ public class ESP extends Mod {
 		if (this.isEnabled()) {
 			for (Entity e  : mc.world.getEntities()) {
 				if (!(e instanceof ClientPlayerEntity)) {
-					
 					if (shouldRenderEntity(e)) {
 						if (mode.is("Rect")) {
 							RenderUtils.renderOutlineRect(e, new Color(red.getValueInt(), blue.getValueInt(), green.getValueInt()), matrices);
@@ -90,7 +89,7 @@ public class ESP extends Mod {
 	public boolean shouldRenderEntity(Entity entity) {
 		if (players.isEnabled() && entity instanceof PlayerEntity) return true;
 		if (monsters.isEnabled() && entity instanceof Monster) return true;
-		if (passives.isEnabled() && entity instanceof PassiveEntity) return true;
+		if (passives.isEnabled() && (entity instanceof PassiveEntity || entity instanceof Entity)) return true;
 		if (invisibles.isEnabled() && entity.isInvisible()) return true;
 		return false;
 	}

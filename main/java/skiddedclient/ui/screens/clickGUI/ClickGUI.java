@@ -14,7 +14,8 @@ public class ClickGUI extends Screen {
 
 	public static final ClickGUI INSTANCE = new ClickGUI();
 	protected static FontRenderer customFont = new FontRenderer("Montserrat.otf", new Identifier("skiddedclient", "fonts"), 20);
-
+	
+	
 	private List<Frame> frames;
 	public Frame parent;
 	public int offset, anim;
@@ -37,17 +38,12 @@ public class ClickGUI extends Screen {
 	
 	@Override
 	public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
+		
 		customFont.drawWithShadow(matrices, "Skidded client", 3, 2, -1, false);
 		for (Frame frame : frames) {
 			frame.render(matrices, mouseX, mouseY, delta);
 			frame.updatePosition(mouseX, mouseY);
 		}
-		
-//		for (int i = (mouseY+12); i < (mouseY+113); i++) {
-//			float curHue = 1f / ((float) ((mouseY+120) - (mouseY+12)) / (i - (mouseY+12)));
-//			DrawableHelper.fill(matrices, i, mouseY, i+1, mouseY+15, 0xff000000 | MathHelper.hsvToRgb(curHue, 1f, 1f));
-////			DrawableHelper.fill(matrices, mouseX, i, mouseX+15, i+1, 0xff000000 | MathHelper.hsvToRgb(curHue, 1f, 1f));
-//		}
 		anim++;
 		super.render(matrices, mouseX, mouseY, delta);
 	}
