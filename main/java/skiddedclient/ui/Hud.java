@@ -22,8 +22,9 @@ public class Hud {
 	private static MinecraftClient mc = MinecraftClient.getInstance();
 	
 	protected static FontRenderer customFont = new FontRenderer("Montserrat.otf", new Identifier("skiddedclient", "fonts"), 20);
-
-	public static void render(MatrixStack matrices,	 float tickDelta) {
+	
+	
+	public static void render(MatrixStack matrices, float tickDelta) {
 		
 		renderArrayList(matrices);
 		if (ModuleManager.INSTANCE.getModule(TargetHud.class).isEnabled()) TargetHudRender(matrices);
@@ -32,6 +33,7 @@ public class Hud {
 	@SuppressWarnings("unused")
 	public static void renderArrayList(MatrixStack matrices) {
 		if (mc.currentScreen != ClickGUI.INSTANCE) {
+			
 			RenderUtils.renderRoundedQuad(matrices, new Color(12,12,12), 10, 7, 56, 19, 2, 100);
 			customFont.drawWithShadow(matrices, "Skidd.ed", 11, 7, -1, false);
 						
@@ -89,12 +91,4 @@ public class Hud {
 			}
 		}
 	}
-	
-	public static double getPlayerSpeed() {
-//        float currentTps = mc.getServer().getTickTime() / 1000.0f;
-        double dx = Math.abs(mc.player.getX() - mc.player.prevX);
-        double dz = Math.abs(mc.player.getZ() - mc.player.prevZ);
-//        return ((MathHelper.sqrt((float) (Math.pow(dirSpeed(Direction.Axis.X), 2) + Math.pow(dirSpeed(Direction.Axis.Z), 2))) / currentTps)) * 3.6;
-        return Math.sqrt(dx * dx + dz * dz) * 20 * 3.6;
-    }
 }

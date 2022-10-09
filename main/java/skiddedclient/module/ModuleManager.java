@@ -68,6 +68,7 @@ public class ModuleManager {
 		modules.add(new AutoWalk());
 		modules.add(new BlockESP());
 		modules.add(new Fullbright());
+		modules.add(new FakeHacker());
 		modules.add(new AutoSoup());
 		modules.add(new Surround());
 		modules.add(new IceSpeed());
