@@ -6,8 +6,10 @@ import java.util.List;
 
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.util.Identifier;
 import skiddedclient.module.settings.KeyBindSetting;
 import skiddedclient.module.settings.Setting;
+import skiddedclient.utils.font.FontRenderer;
 
 public class Mod {
 
@@ -18,6 +20,7 @@ public class Mod {
 	public int key;
 	public String key2;
 	private boolean enabled;
+	protected static FontRenderer customFont = new FontRenderer("Montserrat.otf", new Identifier("skiddedclient", "fonts"), 20);
 
 	
 	private List<Setting> settings = new ArrayList<>();
@@ -55,7 +58,6 @@ public class Mod {
 	
 	public void onEnable() {
 		if(mc.options != null){
-			
 		}
 	}
 	
@@ -113,6 +115,13 @@ public class Mod {
 		
 		private Category(String name) {
 			this.name = name;
+		}
+	}
+	
+
+	public void nullCheck() {
+		if(mc.world == null || mc.player == null || mc.getNetworkHandler() == null || mc.getBufferBuilders() == null) {
+			return;
 		}
 	}
 }

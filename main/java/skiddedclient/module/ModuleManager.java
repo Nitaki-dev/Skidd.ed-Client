@@ -55,6 +55,7 @@ public class ModuleManager {
 		modules.add(new ElytraReplace());
 		modules.add(new ChestStealer());
 		modules.add(new BlockOutline());
+		modules.add(new FakeHacker());
 		modules.add(new LavaBounce());
 		modules.add(new TridentPlus());
 		modules.add(new FakeGMode());
@@ -68,7 +69,6 @@ public class ModuleManager {
 		modules.add(new AutoWalk());
 		modules.add(new BlockESP());
 		modules.add(new Fullbright());
-		modules.add(new FakeHacker());
 		modules.add(new AutoSoup());
 		modules.add(new Surround());
 		modules.add(new IceSpeed());
@@ -83,6 +83,7 @@ public class ModuleManager {
 		modules.add(new FastUse());
 		modules.add(new BoatFly());
 		modules.add(new KillAura());
+		modules.add(new Offhand());
 		modules.add(new Criticals());
 		modules.add(new ClickTP());
 		modules.add(new NoFall());
