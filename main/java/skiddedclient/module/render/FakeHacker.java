@@ -18,7 +18,7 @@ public class FakeHacker extends Mod{
 	PlayerEntity target = null;
 	
 	public FakeHacker() {
-		super("FakeHacked", "Get people banned", Category.RENDER);
+		super("FakeHacker", "Get people banned", Category.RENDER);
 	}
 	
     @Override
