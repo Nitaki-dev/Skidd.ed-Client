@@ -19,8 +19,13 @@ import skiddedclient.utils.render.RenderUtils;
 
 @SuppressWarnings("unused")
 public class Slider extends Component {
+	
+	public static int MainColorRGB = new Color(12,12,12).getRGB();
+	public static int MainColorEnabledRGB = new Color(249,125,1).getRGB();
+	public static Color MainColor = new Color(12,12,12);
+	public static Color MainColorEnabled = new Color(249,125,1);
+	
 	protected static FontRenderer customFont = new FontRenderer("Montserrat.otf", new Identifier("skiddedclient", "fonts"), 18);
-
 
 	public NumberSetting numSet = (NumberSetting)setting;
 	
@@ -31,9 +36,22 @@ public class Slider extends Component {
 		this.numSet = (NumberSetting)setting;
 	}
 
-	@SuppressWarnings({ "static-access" })
+	@SuppressWarnings("static-access")
 	@Override
 	public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
+		
+		if (ModuleManager.INSTANCE.getModule(GUI.class).theme.is("Midnight")) {
+			MainColorRGB = new Color(12,12,12).getRGB();
+			MainColorEnabledRGB = new Color(249,125,1).getRGB();
+			MainColor = new Color(12,12,12);
+			MainColorEnabled = new Color(249,125,1);
+		} else if (ModuleManager.INSTANCE.getModule(GUI.class).theme.is("Light")) {
+			MainColorRGB = new Color(0,0,0,120).getRGB();
+			MainColorEnabledRGB = new Color(249,125,1).getRGB();
+			MainColor = new Color(0,0,0,120);
+			MainColorEnabled = new Color(249,125,1);
+		}
+		
 		int sy = parent.parent.x,
 				sx = parent.parent.y + 12,
 				ey = parent.parent.x + 100,
@@ -48,26 +66,26 @@ public class Slider extends Component {
 		int renderWidth = (int) (parent.parent.width * (numSet.getValue() - numSet.getMin()) / (numSet.getMax() - numSet.getMin()));
 		
 		if (numSet.getMax()!=360) {
-			DrawableHelper.fill(matrices, X1, Y1, parent.parent.x + parent.parent.width, Y2, ModuleManager.INSTANCE.getModule(GUI.class).MainColorRGB);
-			DrawableHelper.fill(matrices, X1, Y1+2, parent.parent.x + renderWidth, Y2-2, ModuleManager.INSTANCE.getModule(GUI.class).MainColorEnabledRGB);//0xff8a00cb
+			DrawableHelper.fill(matrices, X1, Y1, parent.parent.x + parent.parent.width, Y2, MainColorRGB);
+			DrawableHelper.fill(matrices, X1, Y1+2, parent.parent.x + renderWidth, Y2-2, MainColorEnabledRGB);//0xff8a00cb
 			
 		} else if (numSet.getMax()==360) {
 
-			DrawableHelper.fill(matrices, X1, Y1, parent.parent.x + parent.parent.width, Y2, ModuleManager.INSTANCE.getModule(GUI.class).MainColorRGB);
+			DrawableHelper.fill(matrices, X1, Y1, parent.parent.x + parent.parent.width, Y2, MainColorRGB);
 
 			int f1=parent.parent.x+100,
 					f2=parent.parent.x;
 			
 			for (int i = (parent.parent.x); i < (parent.parent.x+100); i++) {
 				float curHue = 1f / ((float) (f1 - f2) / (i - f2));
-				DrawableHelper.fill(matrices, X1, Y1, X1+2, Y2-2, ModuleManager.INSTANCE.getModule(GUI.class).MainColorRGB);
+				DrawableHelper.fill(matrices, X1, Y1, X1+2, Y2-2, MainColorRGB);
 				
 				DrawableHelper.fill(matrices, i, Y1+3, i+1, Y2-2, 0xff000000 | MathHelper.hsvToRgb(curHue, 1f, 1f));
 				if (numSet.getValue()!=numSet.getMax() && numSet.getValue()!=numSet.getMin()) {
-					DrawableHelper.fill(matrices, parent.parent.x+renderWidth-1, Y1, parent.parent.x+renderWidth+1, Y2, ModuleManager.INSTANCE.getModule(GUI.class).MainColorRGB);
+					DrawableHelper.fill(matrices, parent.parent.x+renderWidth-1, Y1, parent.parent.x+renderWidth+1, Y2, MainColorRGB);
 				}
 				
-				DrawableHelper.fill(matrices, X2-2, Y1, X2, Y2-2, ModuleManager.INSTANCE.getModule(GUI.class).MainColorRGB);
+				DrawableHelper.fill(matrices, X2-2, Y1, X2, Y2-2, MainColorRGB);
 //				float curHue2 = 1f/((float) (parent.parent.x+renderWidth-f2) / (i-f2));
 //				DrawableHelper.fill(matrices, X1, Y1+50, X2, Y2+50, MathHelper.hsvToRgb(curHue2, 1f, 1f));
 //				Client.logger.info(MathHelper.hsvToRgb(i-renderWidth, 1f, 1f));

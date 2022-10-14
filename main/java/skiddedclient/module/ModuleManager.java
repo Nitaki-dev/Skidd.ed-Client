@@ -66,12 +66,14 @@ public class ModuleManager {
 		modules.add(new FakePlayer());
 		modules.add(new TargetHud());
 		modules.add(new FastClimb());
+		modules.add(new BoatPhase());
 		modules.add(new AutoWalk());
 		modules.add(new BlockESP());
 		modules.add(new Fullbright());
 		modules.add(new AutoSoup());
 		modules.add(new Surround());
 		modules.add(new IceSpeed());
+		modules.add(new FastStop());
 		modules.add(new ElytraFly());
 		modules.add(new FastBreak());
 		modules.add(new GUI());
@@ -86,6 +88,7 @@ public class ModuleManager {
 		modules.add(new Offhand());
 		modules.add(new Criticals());
 		modules.add(new ClickTP());
+		modules.add(new HoleTP());
 		modules.add(new NoFall());
 		modules.add(new Tracers());
 		modules.add(new Trigger());
