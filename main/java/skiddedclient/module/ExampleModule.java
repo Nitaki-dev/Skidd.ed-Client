@@ -1,7 +1,6 @@
 package skiddedclient.module;
 
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.network.packet.c2s.play.PlayerMoveC2SPacket;
 import skiddedclient.module.settings.BooleanSetting;
 import skiddedclient.module.settings.ModeSetting;
 import skiddedclient.module.settings.NumberSetting;
@@ -17,19 +16,13 @@ public class ExampleModule extends Mod {
 
 	
     public ExampleModule() {
-        super("TestModule", "This is an Example module", Category.EXPLOIT);
+        super("Test_Module", "This is an Example module", Category.EXPLOIT);
         addSettings(speed, bool, mode, color);
 
     }
     
 	@Override
 	public void onTick() {
-		double posX = mc.player.getX();
-		double posY = mc.player.getY();
-		double posZ = mc.player.getZ();
-   		
-		mc.player.networkHandler.sendPacket(new PlayerMoveC2SPacket.PositionAndOnGround(posX, posY + 0.0633, posZ, false));
-		mc.player.networkHandler.sendPacket(new PlayerMoveC2SPacket.PositionAndOnGround(posX, posY, posZ, false));
 		super.onTick();
 	}
 	

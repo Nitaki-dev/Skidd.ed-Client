@@ -1,5 +1,6 @@
 package skiddedclient.ui.screens.clickGUI;
 
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,6 +26,11 @@ public class Frame {
 	public boolean dragging, extended;
 	
 	public List<ModuleButton> buttons;
+	
+	public static int MainColorRGB = new Color(12,12,12).getRGB();
+	public static int MainColorEnabledRGB = new Color(249,125,1).getRGB();
+	public static Color MainColor = new Color(12,12,12);
+	public static Color MainColorEnabled = new Color(249,125,1);
 	
 	protected MinecraftClient mc = MinecraftClient.getInstance();
 	protected static FontRenderer customFont = new FontRenderer("Montserrat.otf", new Identifier("skiddedclient", "fonts"), 20);
@@ -54,11 +60,27 @@ public class Frame {
 	@SuppressWarnings("static-access")
 	public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
 		
-		RenderUtils.renderRoundedQuad(matrices, ModuleManager.INSTANCE.getModule(GUI.class).MainColor, x, y, x + width, y + height, ModuleManager.INSTANCE.getModule(GUI.class).rounded.getValue(), 100);
-		if (this.extended) {
-			DrawableHelper.fill(matrices, x, y+8, x + width, y + height, ModuleManager.INSTANCE.getModule(GUI.class).MainColorRGB);
-
+		if (ModuleManager.INSTANCE.getModule(GUI.class).theme.is("Midnight")) {
+			RenderUtils.renderRoundedQuad(matrices, MainColor, x, y, x + width, y + height, ModuleManager.INSTANCE.getModule(GUI.class).rounded.getValue(), 100);
+			DrawableHelper.fill(matrices, x, y+8, x + width, y + height, MainColorRGB);
+			MainColorRGB = new Color(12,12,12).getRGB();
+			MainColorEnabledRGB = new Color(249,125,1).getRGB();
+			MainColor = new Color(12,12,12);
+			MainColorEnabled = new Color(249,125,1);
+		} else if (ModuleManager.INSTANCE.getModule(GUI.class).theme.is("Light")) {
+			DrawableHelper.fill(matrices, x, y, x + width, y + height, new Color(0,0,0,160).getRGB());
+			MainColorRGB = new Color(0,0,0,120).getRGB();
+			MainColorEnabledRGB = new Color(249,125,1).getRGB();
+			MainColor = new Color(0,0,0,120);
+			MainColorEnabled = new Color(249,125,1);
 		}
+		
+////		RenderUtils.renderRoundedQuad(matrices, MainColor, x, y, x + width, y + height, ModuleManager.INSTANCE.getModule(GUI.class).rounded.getValue(), 100);
+//		if (this.extended) {
+//			DrawableHelper.fill(matrices, x, y+8, x + width, y + height, MainColorRGB);
+//
+//		}
+		
 		int offsetY2 = (int) ((height / 2) - mc.textRenderer.fontHeight / 2);
 
 		customFont.draw(matrices, category.name, 11 + x + offsetY2, y + offsetY2 - customFont.getStringHeight(category.name, false)/2, -1, false);

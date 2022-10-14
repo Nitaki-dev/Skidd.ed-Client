@@ -1,5 +1,6 @@
  package skiddedclient.ui.screens.clickGUI;
 
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,6 +37,11 @@ public class ModuleButton {
 	public boolean extended;
 	float speed;
 	
+	public static int MainColorRGB = new Color(12,12,12).getRGB();
+	public static int MainColorEnabledRGB = new Color(249,125,1).getRGB();
+	public static Color MainColor = new Color(12,12,12);
+	public static Color MainColorEnabled = new Color(249,125,1);
+
 	protected static FontRenderer customFont = new FontRenderer("Montserrat.otf", new Identifier("skiddedclient", "fonts"), 18);
 
 
@@ -65,23 +71,37 @@ public class ModuleButton {
 	
 	@SuppressWarnings({ "unused", "static-access" })
 	public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
+		
+		if (ModuleManager.INSTANCE.getModule(GUI.class).theme.is("Midnight")) {
+			RenderUtils.renderRoundedQuad(matrices, module.isEnabled() ? MainColorEnabled : MainColor, parent.x, parent.y + offset, parent.x + parent.width, parent.y + offset + parent.height, 3, 100);
+			MainColorRGB = new Color(12,12,12).getRGB();
+			MainColorEnabledRGB = new Color(249,125,1).getRGB();
+			MainColor = new Color(12,12,12);
+			MainColorEnabled = new Color(249,125,1);
+		} else if (ModuleManager.INSTANCE.getModule(GUI.class).theme.is("Light")) {
+			MainColorRGB = new Color(0,0,0,120).getRGB();
+			MainColorEnabledRGB = new Color(249,125,1).getRGB();
+			MainColor = new Color(0,0,0,120);
+			MainColorEnabled = new Color(249,125,1);
+		}
+		
 		int sWidth = mc.getWindow().getScaledWidth();
 		int sHeight = mc.getWindow().getScaledHeight();
 		
 		int offsetY = ((parent.height / 2) - parent.mc.textRenderer.fontHeight / 2);
 		
 		if (parent.buttons.indexOf(this) != parent.buttons.size() - 1) {
-			DrawableHelper.fill(matrices, parent.x, parent.y + offset, parent.x + parent.width, parent.y + offset + parent.height, module.isEnabled() ? ModuleManager.INSTANCE.getModule(GUI.class).MainColorEnabledRGB : ModuleManager.INSTANCE.getModule(GUI.class).MainColorRGB);
+			DrawableHelper.fill(matrices, parent.x, parent.y + offset, parent.x + parent.width, parent.y + offset + parent.height, module.isEnabled() ? MainColorEnabledRGB : MainColorRGB);
 		}
 
 		if ((parent.buttons.indexOf(this) == parent.buttons.size() - 1) && !extended) {
-			DrawableHelper.fill(matrices, parent.x, parent.y + offset, parent.x + parent.width, parent.y + offset + parent.height-5, module.isEnabled() ? ModuleManager.INSTANCE.getModule(GUI.class).MainColorEnabledRGB : ModuleManager.INSTANCE.getModule(GUI.class).MainColorRGB);
-			RenderUtils.renderRoundedQuad(matrices, module.isEnabled() ? ModuleManager.INSTANCE.getModule(GUI.class).MainColorEnabled : ModuleManager.INSTANCE.getModule(GUI.class).MainColor, parent.x, parent.y + offset, parent.x + parent.width, parent.y + offset + parent.height, 3, 100);
+			DrawableHelper.fill(matrices, parent.x, parent.y + offset, parent.x + parent.width, parent.y + offset + parent.height - (ModuleManager.INSTANCE.getModule(GUI.class).theme.is("Light") ? 0 : 5), module.isEnabled() ? MainColorEnabledRGB : MainColorRGB);
+//			RenderUtils.renderRoundedQuad(matrices, module.isEnabled() ? MainColorEnabled : MainColor, parent.x, parent.y + offset, parent.x + parent.width, parent.y + offset + parent.height, 3, 100);
 		} else if ((parent.buttons.indexOf(this) == parent.buttons.size() - 1) && extended) {
-			DrawableHelper.fill(matrices, parent.x, parent.y + offset, parent.x + parent.width, parent.y + offset + parent.height, module.isEnabled() ? ModuleManager.INSTANCE.getModule(GUI.class).MainColorEnabledRGB : ModuleManager.INSTANCE.getModule(GUI.class).MainColorRGB);
+			DrawableHelper.fill(matrices, parent.x, parent.y + offset, parent.x + parent.width, parent.y + offset + parent.height, module.isEnabled() ? MainColorEnabledRGB : MainColorRGB);
 		}
 
-		customFont.draw(matrices, module.getName(), parent.x + offsetY+speed, parent.y + offset + offsetY-6, module.isEnabled() ? 0xffffffff : isHovered(mouseX, mouseY) ? 0xffffff :0xffc4c4c4, false);
+		customFont.draw(matrices, module.getName(), parent.x + offsetY+speed, parent.y + offset + offsetY-6, module.isEnabled() ? 0xffffffff : isHovered(mouseX, mouseY) ? 0xffffff : 0xffc4c4c4, false);
 		
 		if (extended) {
 			for (Component component : components) {

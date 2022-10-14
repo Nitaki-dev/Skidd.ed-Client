@@ -50,7 +50,8 @@ public class Hud extends Mod{
 			CopyOnWriteArrayList<Mod> modules = new CopyOnWriteArrayList<Mod>(ModuleManager.INSTANCE.getModules());
 			List<Mod> enabled = ModuleManager.INSTANCE.getEnabledModules();
 		
-			enabled.sort(Comparator.comparingInt(m -> (int)customFont.getStringWidth(((Mod)m).getDisplayName(), false)).reversed());
+			modules.sort(Comparator.comparingInt(m -> (int)customFont.getStringWidth(((Mod)m).getDisplayName(), false)).reversed());
+			
 			for (Mod mod : modules) {
 				int fWidth = (int) customFont.getStringWidth(mod.getDisplayName(), false);
 				int fHeight = (int) customFont.getStringHeight(mod.getDisplayName(), false);
@@ -59,8 +60,8 @@ public class Hud extends Mod{
 					int offset = index*(fHeight);
 					int slideroption = 4;
 
-					DrawableHelper.fill(matrices, sWidth - fWidth-5, index*(fHeight), sWidth, fHeight  + index*(fHeight), 0x70000000);
-					customFont.draw(matrices, mod.getDisplayName(), sWidth-3-fWidth, ((fHeight)*(index))-5, -1, false);
+					DrawableHelper.fill(matrices, sWidth - fWidth-5, index*(fHeight), sWidth, fHeight  + index*(fHeight), 0x99000000);
+					customFont.draw(matrices, mod.getDisplayName(), sWidth-3-fWidth, ((fHeight)*(index))-5, new Color(230,0,0).getRGB(), false);
 					index++;
 				}
 			}

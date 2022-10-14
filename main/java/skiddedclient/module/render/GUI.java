@@ -9,9 +9,11 @@ import skiddedclient.module.settings.NumberSetting;
 public class GUI extends Mod {
 	public static int MainColorRGB = new Color(12,12,12).getRGB();
 	public static int MainColorEnabledRGB = new Color(249,125,1).getRGB();
+//	public static int MainColorEnabledRGB = new Color(229,1,1).getRGB();
 
 	public static Color MainColor = new Color(12,12,12);
 	public static Color MainColorEnabled = new Color(249,125,1);
+//	public static Color MainColorEnabled = new Color(229,1,1);
 	public static ModeSetting theme = new ModeSetting("Theme", "Midnight", "Midnight", "Light");
 	public NumberSetting rounded = new NumberSetting("Corners", 0, 8, 3, 1);
 	
