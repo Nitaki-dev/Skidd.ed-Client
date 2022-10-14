@@ -6,7 +6,7 @@ import skiddedclient.module.settings.NumberSetting;
 
 public class Reach extends Mod{
 	
-	public NumberSetting reach = new NumberSetting("Slider",  4, 10, 3, 1);
+	public NumberSetting reach = new NumberSetting("Slider",  4, 8, 6, 1);
 	
     public Reach() {
         super("Reach", "Long arms", Category.COMBAT);
