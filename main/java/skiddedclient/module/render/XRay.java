@@ -43,6 +43,7 @@ public class XRay extends Mod {
 		enabledXray = true;
 		mc.options.getGamma().setValue(10d);
         mc.worldRenderer.reload();
+        super.onEnable();
     }
 
     @Override
@@ -50,6 +51,7 @@ public class XRay extends Mod {
 		enabledXray = true;
 		mc.options.getGamma().setValue(1d);
         mc.worldRenderer.reload();
+        super.onDisable();
     }
 	
 }

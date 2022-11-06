@@ -25,6 +25,7 @@ public class ChestStealer extends Mod {
     @Override
     public void onTick() {
         if (mc.currentScreen instanceof GenericContainerScreen) {
+        	if (InventoryUtils.isContainerEmpty(mc.player.currentScreenHandler)) mc.player.closeScreen();
             if (!InventoryUtils.isInventoryFull() && !InventoryUtils.isContainerEmpty(mc.player.currentScreenHandler)) {
                 ScreenHandler handler = mc.player.currentScreenHandler;
 

@@ -21,7 +21,7 @@ public class Mod {
 	public String key2;
 	private boolean enabled;
 	protected static FontRenderer customFont = new FontRenderer("Montserrat.otf", new Identifier("skiddedclient", "fonts"), 20);
-
+	public double state, tstate;
 	
 	private List<Setting> settings = new ArrayList<>();
 	
@@ -56,10 +56,6 @@ public class Mod {
 		else onDisable();
 	}
 	
-	public void onEnable() {
-		if(mc.options != null){
-		}
-	}
 	
     public static void sleep(long ms) {
         try {
@@ -76,8 +72,9 @@ public class Mod {
         }
         return null;
     }
-	
-	public void onDisable() {}
+
+	public void onEnable() {tstate=1;}
+	public void onDisable() {tstate=0;}
 	public void onTick() {}
 	public void onTickDisabled() {}
 	public void onMotion() {};

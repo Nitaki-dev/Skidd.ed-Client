@@ -64,6 +64,15 @@ public class Surround extends Mod{
                 }
             }
         }
+        super.onTick();
     }
-
+    
+    @Override
+    public void onEnable() {
+    	super.onEnable();
+    }
+    @Override
+    public void onDisable() {
+    	super.onDisable();
+    }
 }

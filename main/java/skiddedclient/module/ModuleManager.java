@@ -59,7 +59,7 @@ public class ModuleManager {
 		modules.add(new LavaBounce());
 		modules.add(new TridentPlus());
 		modules.add(new FakeGMode());
-		modules.add(new ExampleModule());
+//		modules.add(new ExampleModule());
 		modules.add(new CrystalAura());
 		modules.add(new AutoArmor());
 		modules.add(new TrueSight());
@@ -72,7 +72,6 @@ public class ModuleManager {
 		modules.add(new Fullbright());
 		modules.add(new AutoSoup());
 		modules.add(new Surround());
-		modules.add(new IceSpeed());
 		modules.add(new FastStop());
 		modules.add(new ElytraFly());
 		modules.add(new FastBreak());
@@ -96,6 +95,7 @@ public class ModuleManager {
 		modules.add(new FastXP());
 		modules.add(new Spider());
 		modules.add(new Sprint());
+		modules.add(new Speed());
 		modules.add(new Reach());
 		modules.add(new Flight());
 		modules.add(new Nuker());
@@ -104,10 +104,11 @@ public class ModuleManager {
 		modules.add(new Jesus());
 		modules.add(new Chams());
 		modules.add(new XRay());
+		modules.add(new BHop());
 		modules.add(new Step());
 		modules.add(new ESP());
 
-		//44 Modules
+		//kill me please
 	}
 
 	public Mod getModuleByName(String moduleName) {

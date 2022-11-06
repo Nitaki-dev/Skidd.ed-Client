@@ -31,6 +31,7 @@ public class FastBreak extends Mod{
     @Override
     public void onEnable() {
         haste = new StatusEffectInstance(StatusEffects.HASTE, Integer.MAX_VALUE, (int) 3 - 1);
+        super.onEnable();
     }
 
     @Override
@@ -38,12 +39,14 @@ public class FastBreak extends Mod{
         if (mode.is("Haste")) {
             mc.player.removeStatusEffect(StatusEffects.HASTE);
         }
+        super.onDisable();
     }
 
     @Override
     public void onTick() {
         if (mode.is("Haste")) mc.player.addStatusEffect(haste);
         else mc.player.removeStatusEffect(StatusEffects.HASTE);
+        super.onTick();
     }
 
     @Subscribe

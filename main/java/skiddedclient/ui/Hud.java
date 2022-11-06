@@ -15,8 +15,8 @@ import net.minecraft.util.hit.HitResult;
 import skiddedclient.module.Mod;
 import skiddedclient.module.ModuleManager;
 import skiddedclient.module.combat.TargetHud;
-import skiddedclient.ui.screens.clickGUI.ClickGUI;
 import skiddedclient.utils.font.FontRenderer;
+import skiddedclient.utils.render.ColorUtils;
 import skiddedclient.utils.render.RenderUtils;
 
 public class Hud extends Mod{
@@ -36,13 +36,9 @@ public class Hud extends Mod{
 		if (ModuleManager.INSTANCE.getModule(TargetHud.class).isEnabled()) TargetHudRender(matrices);
 	}
 	
+
 	@SuppressWarnings("unused")
 	public static void renderArrayList(MatrixStack matrices) {
-		if (mc.currentScreen != ClickGUI.INSTANCE) {
-			
-			RenderUtils.renderRoundedQuad(matrices, new Color(12,12,12), 10, 7, 56, 19, 2, 100);
-			customFont.drawWithShadow(matrices, "Skidd.ed", 11, 7, -1, false);
-						
 			int index = 0;
 			int sWidth = mc.getWindow().getScaledWidth();
 			int sHeight = mc.getWindow().getScaledHeight();
@@ -55,18 +51,32 @@ public class Hud extends Mod{
 			for (Mod mod : modules) {
 				int fWidth = (int) customFont.getStringWidth(mod.getDisplayName(), false);
 				int fHeight = (int) customFont.getStringHeight(mod.getDisplayName(), false);
+	            
+//				mod.state = mod.isEnabled() ? Math.min(mod.state+0.5, mod.tstate) : Math.max(mod.state-0.5, mod.tstate);
 
+//                matrices.push();
+//                matrices.translate((sWidth-3-fWidth) * mod.state , ((fHeight)*(index))-5 , 0);
+//                customFont.draw(matrices, mod.getDisplayName(), 0, 0, -1, false);
+//                matrices.pop();
+            	matrices.push();
+        		matrices.scale((float) mod.state, 1, 1);
+				DrawableHelper.fill(matrices, 0, index*(fHeight), fWidth+2, fHeight  + index*(fHeight), 0x99000000);
+				DrawableHelper.fill(matrices, fWidth+4, index*(fHeight), fWidth+2, fHeight  + index*(fHeight), ColorUtils.rainbow(10, 0.8f, 1, 400*index));
+				customFont.draw(matrices, mod.getDisplayName(), 0, ((fHeight)*(index))-5, ColorUtils.rainbow(10, 0.8f, 1, 400*index), false);
+             	matrices.pop();
+                
 				if (mod.isEnabled()) {
-					int offset = index*(fHeight);
-					int slideroption = 4;
-
-					DrawableHelper.fill(matrices, sWidth - fWidth-5, index*(fHeight), sWidth, fHeight  + index*(fHeight), 0x99000000);
-					customFont.draw(matrices, mod.getDisplayName(), sWidth-3-fWidth, ((fHeight)*(index))-5, new Color(230,0,0).getRGB(), false);
-					index++;
+                	index++;
+                	mod.state = Math.min(mod.state+0.08, mod.tstate);
+//					int offset = index*(fHeight);
+//					DrawableHelper.fill(matrices, sWidth - fWidth-5, index*(fHeight), sWidth, fHeight  + index*(fHeight), 0x99000000);
+//					customFont.draw(matrices, mod.getDisplayName(), sWidth-3-fWidth, ((fHeight)*(index))-5, new Color(230,0,0).getRGB(), false);
+				} else if (!mod.isEnabled()){
+					mod.state = Math.max(mod.state-0.08, mod.tstate);
 				}
 			}
 
-		}
+//		}
 	}
 	
 	static PlayerEntity target = null;
