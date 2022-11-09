@@ -83,6 +83,7 @@ public class ModuleManager {
 		modules.add(new Jetpack());
 		modules.add(new FastUse());
 		modules.add(new BoatFly());
+		modules.add(new Freecam());
 		modules.add(new KillAura());
 		modules.add(new Offhand());
 		modules.add(new Criticals());
