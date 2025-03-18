@@ -100,8 +100,10 @@ public class HoleESP extends Mod {
 	public void onWorldRender(MatrixStack matrices) {
 		holes.forEach((pos, color) -> {
 			if (out.isEnabled()) {
-				RenderUtils.drawBoxOutline(new Box(Vec3d.of(pos), Vec3d.of(pos).add(1, 0, 1)).stretch(0, 1, 0),
-						QuadColor.single(color[0], color[1], color[2], 1f), 2);
+				RenderUtils.drawBoxOutline(
+						new Box(Vec3d.of(pos), Vec3d.of(pos).add(1, 0, 1)).stretch(0, 1, 0),
+						QuadColor.single(color[0], color[1], color[2], 1f), 
+						2);
 			}
 			if (fill.isEnabled()) {
 				RenderUtils.drawBoxFill(new Box(Vec3d.of(pos), Vec3d.of(pos).add(1, 0, 1)).stretch(0, 1, 0),
