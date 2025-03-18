@@ -13,7 +13,7 @@ public class Component {
 	public int offset;
 	
 	protected MinecraftClient mc = MinecraftClient.getInstance();
-	
+
 	public Component(Setting setting, ModuleButton parent, int offset) {
 		this.setting = setting;
 		this.parent = parent;

@@ -7,11 +7,16 @@ import java.math.RoundingMode;
 import net.minecraft.client.gui.DrawableHelper;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.math.MathHelper;
+import skiddedclient.Client;
+import skiddedclient.module.ModuleManager;
+import skiddedclient.module.render.GUI;
 import skiddedclient.module.settings.NumberSetting;
 import skiddedclient.module.settings.Setting;
 import skiddedclient.ui.screens.clickGUI.ModuleButton;
 import skiddedclient.utils.font.FontRenderer;
 
+@SuppressWarnings("unused")
 public class Slider extends Component {
 	protected static FontRenderer customFont = new FontRenderer("Montserrat.otf", new Identifier("skiddedclient", "fonts"), 18);
 
@@ -25,15 +30,44 @@ public class Slider extends Component {
 		this.numSet = (NumberSetting)setting;
 	}
 
+	@SuppressWarnings({ "static-access", "unused" })
 	@Override
 	public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
-    	
+		int sy = parent.parent.x,
+				sx = parent.parent.y + 12,
+				ey = parent.parent.x + 100,
+				ex = parent.parent.y + getWidth(120);
+		
+		int X1 = parent.parent.x,
+				X2 = parent.parent.x + parent.parent.width,
+				Y1 = parent.parent.y + parent.offset + offset,
+				Y2 = parent.parent.y + parent.offset + offset + parent.parent.height;
+		
 		double diff = Math.min(parent.parent.width, Math.max(0, mouseX - parent.parent.x));
 		int renderWidth = (int) (parent.parent.width * (numSet.getValue() - numSet.getMin()) / (numSet.getMax() - numSet.getMin()));
 		
-		DrawableHelper.fill(matrices, parent.parent.x, parent.parent.y + parent.offset + offset, parent.parent.x + parent.parent.width, parent.parent.y + parent.offset + offset + parent.parent.height, 0xff262626);
-		DrawableHelper.fill(matrices, parent.parent.x, parent.parent.y + parent.offset + offset, parent.parent.x + renderWidth, parent.parent.y + parent.offset + offset + parent.parent.height, new Color(249,125,1).getRGB());//0xff8a00cb
-		
+		if (numSet.getMax()!=360) {
+			DrawableHelper.fill(matrices, X1, Y1, parent.parent.x + parent.parent.width, Y2, ModuleManager.INSTANCE.getModule(GUI.class).MainColorRGB);
+			DrawableHelper.fill(matrices, X1, Y1, parent.parent.x + renderWidth, Y2, ModuleManager.INSTANCE.getModule(GUI.class).MainColorEnabledRGB);//0xff8a00cb
+			
+		} else if (numSet.getMax()==360) {
+			
+			int f1=parent.parent.x+100,
+					f2=parent.parent.x;
+			
+			for (int i = (parent.parent.x); i < (parent.parent.x+100); i++) {
+				float curHue = 1f / ((float) (f1 - f2) / (i - f2));
+				DrawableHelper.fill(matrices, i, Y1, i+1, Y2, 0xff000000 | MathHelper.hsvToRgb(curHue, 1f, 1f));
+				DrawableHelper.fill(matrices, parent.parent.x+renderWidth-1, Y1, parent.parent.x+renderWidth+1, Y2, 0xff181818);
+				
+//				float curHue2 = 1f/((float) (parent.parent.x+renderWidth-f2) / (i-f2));
+//				DrawableHelper.fill(matrices, X1, Y1+50, X2, Y2+50, MathHelper.hsvToRgb(curHue2, 1f, 1f));
+//				Client.logger.info(MathHelper.hsvToRgb(i-renderWidth, 1f, 1f));
+				
+			}
+			
+			
+		}
 
 		if (sliding) {
 			if (diff == 0) {
@@ -50,9 +84,18 @@ public class Slider extends Component {
 		super.render(matrices, mouseX, mouseY, delta);
 	}
 	
+	public int getHeight(int len) {
+		return len - len / 4 - 1;
+	}
+	public int getWidth(int len) {
+		return len - len / 4 - 1;
+	}
+	
 	@Override
 	public void mouseClicked(double mouseX, double mouseY, int button) {
-		if (isHovered(mouseX, mouseY)) sliding = true;
+		if (isHovered(mouseX, mouseY)) {
+			sliding = true;
+		}
 		super.mouseClicked(mouseX, mouseY, button);
 	}
 	

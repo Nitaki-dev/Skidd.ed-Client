@@ -5,6 +5,8 @@ import java.awt.Color;
 import net.minecraft.client.gui.DrawableHelper;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
+import skiddedclient.module.ModuleManager;
+import skiddedclient.module.render.GUI;
 import skiddedclient.module.settings.BooleanSetting;
 import skiddedclient.module.settings.Setting;
 import skiddedclient.ui.screens.clickGUI.ModuleButton;
@@ -21,22 +23,23 @@ public class CheckBox extends Component {
 		this.boolSet = (BooleanSetting)setting;
 	}
 	
+	@SuppressWarnings("static-access")
 	@Override
 	public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
 
 		if (parent.parent.buttons.indexOf(parent) == parent.parent.buttons.size() -1) {
 			if (parent.components.indexOf(this) != parent.components.size() - 1) {
 				//last module but not last setting
-				DrawableHelper.fill(matrices, parent.parent.x, parent.parent.y + parent.offset + offset, parent.parent.x + parent.parent.width, parent.parent.y + parent.offset + offset + parent.parent.height, 0xff262626);
+				DrawableHelper.fill(matrices, parent.parent.x, parent.parent.y + parent.offset + offset, parent.parent.x + parent.parent.width, parent.parent.y + parent.offset + offset + parent.parent.height, ModuleManager.INSTANCE.getModule(GUI.class).MainColorRGB);
 			} else if (parent.components.indexOf(this) == parent.components.size() -1) {
 				//last module and last setting
-				DrawableHelper.fill(matrices, parent.parent.x, parent.parent.y + parent.offset + offset, parent.parent.x + parent.parent.width, parent.parent.y + parent.offset + offset + parent.parent.height-5, 0xff262626);
-				RenderUtils.renderRoundedQuad(matrices, new Color(38,38,38), parent.parent.x, parent.parent.y + parent.offset + offset, parent.parent.x + parent.parent.width, parent.parent.y + parent.offset + offset + parent.parent.height, 3, 100);
+				DrawableHelper.fill(matrices, parent.parent.x, parent.parent.y + parent.offset + offset, parent.parent.x + parent.parent.width, parent.parent.y + parent.offset + offset + parent.parent.height-5, ModuleManager.INSTANCE.getModule(GUI.class).MainColorRGB);
+				RenderUtils.renderRoundedQuad(matrices, ModuleManager.INSTANCE.getModule(GUI.class).MainColor, parent.parent.x, parent.parent.y + parent.offset + offset, parent.parent.x + parent.parent.width, parent.parent.y + parent.offset + offset + parent.parent.height, 3, 100);
 			
 			}
 		} else if (parent.parent.buttons.indexOf(parent) != parent.parent.buttons.size() -1) {
 			//not last module
-			DrawableHelper.fill(matrices, parent.parent.x, parent.parent.y + parent.offset + offset, parent.parent.x + parent.parent.width, parent.parent.y + parent.offset + offset + parent.parent.height, 0xff262626);
+			DrawableHelper.fill(matrices, parent.parent.x, parent.parent.y + parent.offset + offset, parent.parent.x + parent.parent.width, parent.parent.y + parent.offset + offset + parent.parent.height, ModuleManager.INSTANCE.getModule(GUI.class).MainColorRGB);
 		}
 		
 		int offsetY = ((parent.parent.height / 2) - mc.textRenderer.fontHeight / 2);

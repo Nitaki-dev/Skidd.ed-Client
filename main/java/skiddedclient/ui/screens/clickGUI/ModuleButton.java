@@ -1,6 +1,5 @@
  package skiddedclient.ui.screens.clickGUI;
 
-import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,12 +8,13 @@ import net.minecraft.client.gui.DrawableHelper;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
 import skiddedclient.module.Mod;
+import skiddedclient.module.ModuleManager;
+import skiddedclient.module.render.GUI;
 import skiddedclient.module.settings.BooleanSetting;
 import skiddedclient.module.settings.ColorSetting;
 import skiddedclient.module.settings.KeyBindSetting;
 import skiddedclient.module.settings.ModeSetting;
 import skiddedclient.module.settings.NumberSetting;
-import skiddedclient.module.settings.PasteSetting;
 import skiddedclient.module.settings.Setting;
 import skiddedclient.ui.screens.clickGUI.setting.CheckBox;
 import skiddedclient.ui.screens.clickGUI.setting.ColorBox;
@@ -22,9 +22,9 @@ import skiddedclient.ui.screens.clickGUI.setting.Component;
 import skiddedclient.ui.screens.clickGUI.setting.KeyBind;
 import skiddedclient.ui.screens.clickGUI.setting.ModeBox;
 import skiddedclient.ui.screens.clickGUI.setting.Slider;
-import skiddedclient.ui.screens.clickGUI.setting.PasteBox;
 import skiddedclient.utils.font.FontRenderer;
 import skiddedclient.utils.render.RenderUtils;
+
 
 public class ModuleButton {
 	private static MinecraftClient mc = MinecraftClient.getInstance();
@@ -34,6 +34,7 @@ public class ModuleButton {
 	public int offset;
 	public List<Component> components;
 	public boolean extended;
+	float speed;
 	
 	protected static FontRenderer customFont = new FontRenderer("Montserrat.otf", new Identifier("skiddedclient", "fonts"), 18);
 
@@ -57,14 +58,12 @@ public class ModuleButton {
 				components.add(new KeyBind(setting, this, setOffset));
 			} else if (setting instanceof ColorSetting) {
 				components.add(new ColorBox(setting, this, setOffset));
-			}if (setting instanceof PasteSetting) {
-				components.add(new PasteBox(setting, this, setOffset));
 			}
 			setOffset += parent.height;
 		}
 	}
 	
-	@SuppressWarnings("unused")
+	@SuppressWarnings({ "unused", "static-access" })
 	public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
 		int sWidth = mc.getWindow().getScaledWidth();
 		int sHeight = mc.getWindow().getScaledHeight();
@@ -72,23 +71,29 @@ public class ModuleButton {
 		int offsetY = ((parent.height / 2) - parent.mc.textRenderer.fontHeight / 2);
 		
 		if (parent.buttons.indexOf(this) != parent.buttons.size() - 1) {
-			DrawableHelper.fill(matrices, parent.x, parent.y + offset, parent.x + parent.width, parent.y + offset + parent.height, module.isEnabled() ?  0xfff97d01 : 0xff262626);
+			DrawableHelper.fill(matrices, parent.x, parent.y + offset, parent.x + parent.width, parent.y + offset + parent.height, module.isEnabled() ? ModuleManager.INSTANCE.getModule(GUI.class).MainColorEnabledRGB : ModuleManager.INSTANCE.getModule(GUI.class).MainColorRGB);
 		}
 
 		if ((parent.buttons.indexOf(this) == parent.buttons.size() - 1) && !extended) {
-			DrawableHelper.fill(matrices, parent.x, parent.y + offset, parent.x + parent.width, parent.y + offset + parent.height-5, module.isEnabled() ? 0xfff97d01 : 0xff262626);
-			RenderUtils.renderRoundedQuad(matrices, module.isEnabled() ? new Color(249,125,1) : new Color(38,38,38), parent.x, parent.y + offset, parent.x + parent.width, parent.y + offset + parent.height, 3, 100);
+			DrawableHelper.fill(matrices, parent.x, parent.y + offset, parent.x + parent.width, parent.y + offset + parent.height-5, module.isEnabled() ? ModuleManager.INSTANCE.getModule(GUI.class).MainColorEnabledRGB : ModuleManager.INSTANCE.getModule(GUI.class).MainColorRGB);
+			RenderUtils.renderRoundedQuad(matrices, module.isEnabled() ? ModuleManager.INSTANCE.getModule(GUI.class).MainColorEnabled : ModuleManager.INSTANCE.getModule(GUI.class).MainColor, parent.x, parent.y + offset, parent.x + parent.width, parent.y + offset + parent.height, 3, 100);
 		} else if ((parent.buttons.indexOf(this) == parent.buttons.size() - 1) && extended) {
-			DrawableHelper.fill(matrices, parent.x, parent.y + offset, parent.x + parent.width, parent.y + offset + parent.height, module.isEnabled() ? 0xfff97d01 : 0xff262626);
+			DrawableHelper.fill(matrices, parent.x, parent.y + offset, parent.x + parent.width, parent.y + offset + parent.height, module.isEnabled() ? ModuleManager.INSTANCE.getModule(GUI.class).MainColorEnabledRGB : ModuleManager.INSTANCE.getModule(GUI.class).MainColorRGB);
 		}
 
-		customFont.draw(matrices, module.getName(), parent.x + offsetY, parent.y + offset + offsetY-6, module.isEnabled() ? 0xffffffff : 0xffc4c4c4, false);
+		customFont.draw(matrices, module.getName(), parent.x + offsetY+speed, parent.y + offset + offsetY-6, module.isEnabled() ? 0xffffffff : isHovered(mouseX, mouseY) ? 0xffffff :0xffc4c4c4, false);
 		
 		if (isHovered(mouseX, mouseY)) {
 			DrawableHelper.fill(matrices, 0, sHeight, (int) customFont.getStringWidth(module.getDescription(), false)+5, sHeight - (int)customFont.getStringHeight("|", false)-3, 0x70000000);
 			customFont.drawWithShadow(matrices, module.getDescription(), 2, sHeight - customFont.getStringHeight("|", false)-1, -1, false);
-		}
 
+			speed+=0.5;
+		} else {
+			if (speed>0)speed--;
+		}
+		
+		if (speed>4.0)speed=4;
+		
 		
 		if (extended) {
 			for (Component component : components) {
