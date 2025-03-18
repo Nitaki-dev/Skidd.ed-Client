@@ -60,7 +60,6 @@ public class Frame {
 		}
 		int offsetY2 = (int) ((height / 2) - mc.textRenderer.fontHeight / 2);
 
-//		mc.textRenderer.drawWithShadow(matrices, category.name, x + offsetY2, y + offsetY2, -1);
 		customFont.draw(matrices, category.name, 11 + x + offsetY2, y + offsetY2 - customFont.getStringHeight(category.name, false)/2, -1, false);
 		logoFont.draw(matrices, extended ? "A" : "B", x + width - offsetY2 - 2 - mc.textRenderer.getWidth("--"), y + offsetY2, -1, false);
 
