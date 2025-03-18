@@ -29,6 +29,7 @@ public class Frame {
 	protected MinecraftClient mc = MinecraftClient.getInstance();
 	protected static FontRenderer customFont = new FontRenderer("Montserrat.otf", new Identifier("skiddedclient", "fonts"), 20);
 	protected static FontRenderer logoFont = new FontRenderer("logo.ttf", new Identifier("skiddedclient", "fonts"), 10);
+	protected static FontRenderer logoFont2 = new FontRenderer("logo.ttf", new Identifier("skiddedclient", "fonts"), 20);
 
 	public Frame(Category category, int x, int y, int width, int height) {
 		this.category = category;
@@ -60,8 +61,21 @@ public class Frame {
 		int offsetY2 = (int) ((height / 2) - mc.textRenderer.fontHeight / 2);
 
 //		mc.textRenderer.drawWithShadow(matrices, category.name, x + offsetY2, y + offsetY2, -1);
-		customFont.draw(matrices, category.name, x + offsetY2, y + offsetY2 - customFont.getStringHeight(category.name, false)/2, -1, false);
+		customFont.draw(matrices, category.name, 11 + x + offsetY2, y + offsetY2 - customFont.getStringHeight(category.name, false)/2, -1, false);
 		logoFont.draw(matrices, extended ? "A" : "B", x + width - offsetY2 - 2 - mc.textRenderer.getWidth("--"), y + offsetY2, -1, false);
+
+        if (category.name == "Movement") {
+            logoFont2.draw(matrices, "C", x + offsetY2-4, y + offsetY2 - customFont.getStringHeight(category.name, false)/2+4, -1, false);
+        } else if (category.name == "Combat") {
+            logoFont2.draw(matrices, "F", x + offsetY2-4, y + offsetY2 - customFont.getStringHeight(category.name, false)/2+4, -1, false);
+        } else if (category.name == "Render") {
+            logoFont2.draw(matrices, "G", x + offsetY2-4, y + offsetY2 - customFont.getStringHeight(category.name, false)/2+4, -1, false);
+        } else if (category.name == "Exploit") {
+            logoFont2.draw(matrices, "E", x + offsetY2-4, y + offsetY2 - customFont.getStringHeight(category.name, false)/2+4, -1, false);
+        } else if (category.name == "World") {
+            logoFont2.draw(matrices, "D", x + offsetY2-4, y + offsetY2 - customFont.getStringHeight(category.name, false)/2+4, -1, false);
+        }
+		
 		if (extended) {
 			for (ModuleButton button : buttons) {
 				button.render(matrices, mouseX, mouseY, delta);
