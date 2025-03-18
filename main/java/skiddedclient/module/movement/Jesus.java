@@ -1,6 +1,7 @@
 package skiddedclient.module.movement;
 
 import net.minecraft.client.option.GameOptions;
+import net.minecraft.util.Formatting;
 import net.minecraft.util.math.Vec3d;
 import skiddedclient.module.Mod;
 import skiddedclient.module.settings.ModeSetting;
@@ -8,21 +9,25 @@ import skiddedclient.module.settings.NumberSetting;
 
 public class Jesus extends Mod{
 	
-	ModeSetting mode = new ModeSetting("Mode", "Legit", "Legit", "Dolphin");
+	ModeSetting mode = new ModeSetting("Mode", "Static", "Static", "Dolphin", "Bypass", "Velocity");
 	NumberSetting speed = new NumberSetting("Factor", 1, 10, 2, 1);
+	NumberSetting velStrength = new NumberSetting("Velocity Strength", 0.0003, 0.3, 0.1, 0.0001);
 
 	public Jesus() {
 		super("Jesus", "Makes you water go boom", Category.MOVEMENT);
-		addSettings(mode,speed);
+		addSettings(mode,speed,velStrength);
 	}
+	
+	private static final Formatting Gray = Formatting.GRAY;
 	
 	@Override
 	public void onTick() {
+		this.setDisplayName("Jesus" + Gray + " ["+mode.getMode()+"]");
 		if(mode.is("Dolphin")) {
 			if(mc.player.isSwimming() && mc.player.isSubmergedInWater()) {
 				mc.player.jump();
 			}
-		}else if(mode.is("Legit")){
+		}else if(mode.is("Static")){
 			if (mc.player.isTouchingWater()) {
 				mc.player.setVelocity(0, 0.1, 0);
 				GameOptions go = mc.options;
@@ -51,8 +56,15 @@ public class Jesus extends Mod{
 	            mc.player.setVelocity(nv3);
 	        	
 			}
+		}else if(mode.is("Bypass")){
+			if (mc.player.isTouchingWater()) {
+				mc.player.setVelocity(0, 0.1, 0);
+			}
+		}else if(mode.is("Velocity")) {
+			if(mc.player.isTouchingWater()) {
+				mc.player.setVelocity(mc.player.getVelocity().x, velStrength.getValue(), mc.player.getVelocity().z);
+			}
 		}
 		super.onTick();
 	}
-
 }

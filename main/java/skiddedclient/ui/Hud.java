@@ -3,6 +3,7 @@ package skiddedclient.ui;
 import java.awt.Color;
 import java.util.Comparator;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawableHelper;
@@ -18,11 +19,16 @@ import skiddedclient.ui.screens.clickGUI.ClickGUI;
 import skiddedclient.utils.font.FontRenderer;
 import skiddedclient.utils.render.RenderUtils;
 
-public class Hud {
+public class Hud extends Mod{
+	
 	private static MinecraftClient mc = MinecraftClient.getInstance();
 	
 	protected static FontRenderer customFont = new FontRenderer("Montserrat.otf", new Identifier("skiddedclient", "fonts"), 20);
 	
+	public Hud() {
+		super("hud", "hud", Category.RENDER);
+	}
+
 	
 	public static void render(MatrixStack matrices, float tickDelta) {
 		
@@ -41,26 +47,24 @@ public class Hud {
 			int sWidth = mc.getWindow().getScaledWidth();
 			int sHeight = mc.getWindow().getScaledHeight();
 			
+			CopyOnWriteArrayList<Mod> modules = new CopyOnWriteArrayList<Mod>(ModuleManager.INSTANCE.getModules());
 			List<Mod> enabled = ModuleManager.INSTANCE.getEnabledModules();
 		
 			enabled.sort(Comparator.comparingInt(m -> (int)customFont.getStringWidth(((Mod)m).getDisplayName(), false)).reversed());
-			
-			for (Mod mod : enabled) {
+			for (Mod mod : modules) {
 				int fWidth = (int) customFont.getStringWidth(mod.getDisplayName(), false);
 				int fHeight = (int) customFont.getStringHeight(mod.getDisplayName(), false);
-				int offset = index*(fHeight);
-				int slideroption = 4;
-				DrawableHelper.fill(matrices
-						, sWidth - fWidth-5
-						, index*(fHeight)+1
-						, sWidth
-						, fHeight  + index*(fHeight)+1
-						, 0x70000000);
-				
-//				DrawableHelper.fill(matrices, sWidth-3-fWidth, 4+index, ((fHeight)*(index))+sWidth, fHeight*index, 0x70000000);
-				customFont.draw(matrices, mod.getDisplayName(), sWidth-3-fWidth, ((fHeight)*(index))-4, -1, false);
-				index++;
+
+				if (mod.isEnabled()) {
+					int offset = index*(fHeight);
+					int slideroption = 4;
+
+					DrawableHelper.fill(matrices, sWidth - fWidth-5, index*(fHeight), sWidth, fHeight  + index*(fHeight), 0x70000000);
+					customFont.draw(matrices, mod.getDisplayName(), sWidth-3-fWidth, ((fHeight)*(index))-5, -1, false);
+					index++;
+				}
 			}
+
 		}
 	}
 	
