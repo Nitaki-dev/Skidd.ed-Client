@@ -22,6 +22,8 @@ public class Hud {
 	
 	protected static FontRenderer customFont = new FontRenderer("Montserrat.otf", new Identifier("skiddedclient", "fonts"), 20);
 
+	
+	
 	public static void render(MatrixStack matrices,	 float tickDelta) {
 		renderArrayList(matrices);
 		if (ModuleManager.INSTANCE.getModule(TargetHud.class).isEnabled()) TargetHudRender(matrices);
@@ -29,7 +31,7 @@ public class Hud {
 	
 	@SuppressWarnings("unused")
 	public static void renderArrayList(MatrixStack matrices) {
-		if (mc.currentScreen != ClickGUI.INSTANCE) {
+	if (mc.currentScreen != ClickGUI.INSTANCE) {
 		RenderUtils.renderRoundedQuad(matrices, new Color(12,12,12), 10, 7, 56, 19, 2, 100);
 		customFont.drawWithShadow(matrices, "Skidd.ed", 11, 7, -1, false);
 
@@ -50,12 +52,10 @@ public class Hud {
 			int offset = index*(fHeight);
 			int slideroption = 4;
 			customFont.draw(matrices, mod.getDisplayName(), sWidth-3-fWidth, ((fHeight)*(index))-4, -1, false);
-//			DrawableHelper.fill(matrices, sWidth-3, fHeight-fHeight, sWidth, fHeight*index+14, -1);
-//			DrawableHelper.fill(matrices, sWidth, 9, sWidth - 2,  20 + (index * 13), -1);
 
-		index++;
+			index++;
 		}
-		}
+	}
 	}
 	
 	static PlayerEntity target = null;
