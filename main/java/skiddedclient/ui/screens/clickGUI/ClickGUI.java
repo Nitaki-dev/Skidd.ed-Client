@@ -17,7 +17,7 @@ public class ClickGUI extends Screen {
 
 	private List<Frame> frames;
 	public Frame parent;
-	public int offset;
+	public int offset, anim;
 	
 	private ClickGUI() {
 		super(Text.literal("Click GUI"));
@@ -48,6 +48,7 @@ public class ClickGUI extends Screen {
 //			DrawableHelper.fill(matrices, i, mouseY, i+1, mouseY+15, 0xff000000 | MathHelper.hsvToRgb(curHue, 1f, 1f));
 ////			DrawableHelper.fill(matrices, mouseX, i, mouseX+15, i+1, 0xff000000 | MathHelper.hsvToRgb(curHue, 1f, 1f));
 //		}
+		anim++;
 		super.render(matrices, mouseX, mouseY, delta);
 	}
 	

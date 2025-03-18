@@ -57,4 +57,7 @@ public abstract class Event {
             }
         }
     }
+    public void cancel() {
+    	cancelled = true;
+	}
 }

@@ -327,7 +327,6 @@ public class RenderUtils {
 		end3DRender();
 	}
 	
-	
     public static void drawEntityBox(MatrixStack matrixstack, Entity entity, double x, double y, double z, Color color) {
         setup3DRender(true);
         matrixstack.translate(x, y, z);

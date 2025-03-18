@@ -33,13 +33,9 @@ import skiddedclient.utils.render.RenderUtils;
 public class Tracers extends Mod {
 	
 	public BooleanSetting players = new BooleanSetting("Players", true);
-	
 	public BooleanSetting monsters = new BooleanSetting("Monsters", true);
-	
 	public BooleanSetting animals = new BooleanSetting("Animals", true);
-	
 	public BooleanSetting passives = new BooleanSetting("Passives", true);
-	
 	public BooleanSetting invisibles = new BooleanSetting("Invisibles", true);
 	
 	public NumberSetting red = new NumberSetting("Color",  0, 255, 255, 1);
@@ -62,9 +58,7 @@ public class Tracers extends Mod {
             Color c = getEntityColor(entity);
 
             if (shouldRenderEntity(entity)) {
-
-                    RenderUtils.line(RenderUtils.center(), entity.getPos().add(0, entity.getStandingEyeHeight(), 0), c, matrices);
-                    //RenderUtils.line(entity.getPos(), entity.getPos().add(0, entity.getStandingEyeHeight(), 0), c, matrices);
+                RenderUtils.line(RenderUtils.center(), entity.getPos().add(0, entity.getStandingEyeHeight(), 0), c, matrices);
             }
         }
 		super.onWorldRender(matrices);

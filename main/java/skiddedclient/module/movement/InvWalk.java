@@ -22,7 +22,11 @@ public class InvWalk extends Mod{
 	
 	 @Override
 	    public void onTick() {
-	        if (inventory.isEnabled() && mc.currentScreen != null && !(mc.currentScreen instanceof ChatScreen) && !(mc.currentScreen instanceof SignEditScreen) && !(mc.currentScreen instanceof BookScreen)) {
+	        if (inventory.isEnabled() 
+	        		&& mc.currentScreen != null 
+	        		&& !(mc.currentScreen instanceof ChatScreen) 
+	        		&& !(mc.currentScreen instanceof SignEditScreen) 
+	        		&& !(mc.currentScreen instanceof BookScreen)) {
 	            for (KeyBinding k : new KeyBinding[]{mc.options.forwardKey, mc.options.backKey,
 	                    mc.options.leftKey, mc.options.rightKey, mc.options.jumpKey, mc.options.sprintKey}) {
 	                k.setPressed(InputUtil.isKeyPressed(mc.getWindow().getHandle(),

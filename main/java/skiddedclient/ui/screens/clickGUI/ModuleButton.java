@@ -83,6 +83,12 @@ public class ModuleButton {
 
 		customFont.draw(matrices, module.getName(), parent.x + offsetY+speed, parent.y + offset + offsetY-6, module.isEnabled() ? 0xffffffff : isHovered(mouseX, mouseY) ? 0xffffff :0xffc4c4c4, false);
 		
+		if (extended) {
+			for (Component component : components) {
+				component.render(matrices, mouseX, mouseY, delta);
+			}
+		}
+		
 		if (isHovered(mouseX, mouseY)) {
 			DrawableHelper.fill(matrices, 0, sHeight, (int) customFont.getStringWidth(module.getDescription(), false)+5, sHeight - (int)customFont.getStringHeight("|", false)-3, 0x70000000);
 			customFont.drawWithShadow(matrices, module.getDescription(), 2, sHeight - customFont.getStringHeight("|", false)-1, -1, false);
@@ -95,11 +101,7 @@ public class ModuleButton {
 		if (speed>4.0)speed=4;
 		
 		
-		if (extended) {
-			for (Component component : components) {
-				component.render(matrices, mouseX, mouseY, delta);
-			}
-		}
+		
 
 	}
 	
