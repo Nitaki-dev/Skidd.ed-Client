@@ -124,7 +124,6 @@ public class CrystalAura extends Mod {
 					.collect(Collectors.toList());
 	
 			if (targets.isEmpty()) {
-				resetRotation();
 				return;
 			}
 			
@@ -133,7 +132,6 @@ public class CrystalAura extends Mod {
 			for (Entry<BlockPos, Integer> e : new HashMap<>(blacklist).entrySet()) {
 				if (e.getValue() > 0) {
 
-					if (e.getValue() == null) resetRotation();
 					blacklist.replace(e.getKey(), e.getValue() - 1);
 				} else {
 					blacklist.remove(e.getKey());
