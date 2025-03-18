@@ -6,14 +6,19 @@ import java.util.List;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.text.Text;
+import net.minecraft.util.Identifier;
 import skiddedclient.module.Mod.Category;
+import skiddedclient.utils.font.FontRenderer;
 
 public class ClickGUI extends Screen {
 
 	public static final ClickGUI INSTANCE = new ClickGUI();
-	
+	protected static FontRenderer customFont = new FontRenderer("Montserrat.otf", new Identifier("skiddedclient", "fonts"), 20);
+
 	private List<Frame> frames;
-		
+	public Frame parent;
+	public int offset;
+
 	private ClickGUI() {
 		super(Text.literal("Click GUI"));
 		
@@ -29,25 +34,28 @@ public class ClickGUI extends Screen {
 		}
 	}
 
+	
 	@Override
 	public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
+		customFont.drawWithShadow(matrices, "ClickGUI", 3, 2, -1, false);
 
 		for (Frame frame : frames) {
 			frame.render(matrices, mouseX, mouseY, delta);
 			frame.updatePosition(mouseX, mouseY);
 		}
-        
+		
 		super.render(matrices, mouseX, mouseY, delta);
 	}
 	
 	@Override
 	public boolean mouseClicked(double mouseX, double mouseY, int button) {
+
 		for (Frame frame : frames) {
 			frame.mouseClicked(mouseX, mouseY, button);
 		}
 		return super.mouseClicked(mouseX, mouseY, button);
 	}
-	
+
 	@Override
 	public boolean mouseReleased(double mouseX, double mouseY, int button) {
 		for (Frame frame : frames) {
@@ -57,6 +65,7 @@ public class ClickGUI extends Screen {
 	}
 	@Override
     public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
+		
         for (Frame frame : frames) {
             frame.keyPressed(keyCode);
         }

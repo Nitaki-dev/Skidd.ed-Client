@@ -38,7 +38,7 @@ public class Tracers extends Mod {
 	public BooleanSetting invisibles = new BooleanSetting("Invisibles", true);
 	
 	public Tracers() {
-		super("Tracers", "draw cool lines", Category.RENDER);
+		super("Tracers", "Draws a line from the cursor to every entities", Category.RENDER);
 		addSettings(players, monsters, animals, passives, invisibles);
 	}
     
