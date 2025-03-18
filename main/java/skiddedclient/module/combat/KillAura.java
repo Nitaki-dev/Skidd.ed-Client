@@ -17,7 +17,7 @@ import skiddedclient.module.settings.ModeSetting;
 import skiddedclient.module.settings.NumberSetting;
 import skiddedclient.utils.RotationUtils;
 
-public class KillAura extends Mod {
+public class Killaura extends Mod {
     public static ArrayList<String> modes = new ArrayList<>();
 
     public static ModeSetting mode = new ModeSetting("Mode", "Camera", "Camera", "Packet");
@@ -28,8 +28,8 @@ public class KillAura extends Mod {
     public static BooleanSetting esp = new BooleanSetting("ESP", false);
 
     
-    public KillAura() {
-        super("KillAura", "yk", Category.COMBAT);
+    public Killaura() {
+        super("Killaura", "yk", Category.COMBAT);
         addSettings(mode, rotationmode, range, cooldown, priority, esp);
     }
 
@@ -69,6 +69,7 @@ public class KillAura extends Mod {
                                 	if (targets.get(0) != null) mc.inGameHud.getChatHud().addMessage(Text.literal("[Skidd.ed] " + targets.get(0).getHealth() + ""));
                                     mc.interactionManager.attackEntity(mc.player, targets.get(0));
                             		mc.player.swingHand(Hand.MAIN_HAND);
+                            		resetRotation();
                                 }
                         	}
                         }
@@ -84,8 +85,11 @@ public class KillAura extends Mod {
     
     @Override
     public void onDisable() {
+    	resetRotation();
+    	super.onDisable();
+    }
+    public void resetRotation() {
     	RotationUtils.resetPitch();
     	RotationUtils.resetYaw();
-    	super.onDisable();
     }
 }

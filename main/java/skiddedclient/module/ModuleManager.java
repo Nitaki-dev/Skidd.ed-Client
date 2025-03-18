@@ -52,7 +52,7 @@ public class ModuleManager {
 		modules.add(new ExampleModule());
 		modules.add(new CrystalAura());
 		modules.add(new FakePlayer());
-		modules.add(new KillAura());
+		modules.add(new Killaura());
 		modules.add(new ClickTP());
 		modules.add(new Tracers());
 		modules.add(new Sprint());
