@@ -21,18 +21,15 @@ public class ExampleModule extends Mod {
         addSettings(speed, bool, mode, color);
 
     }
-    int cld=1;
+    
 	@Override
 	public void onTick() {
 		double posX = mc.player.getX();
 		double posY = mc.player.getY();
-   		double posZ = mc.player.getZ();
+		double posZ = mc.player.getZ();
    		
 		mc.player.networkHandler.sendPacket(new PlayerMoveC2SPacket.PositionAndOnGround(posX, posY + 0.0633, posZ, false));
 		mc.player.networkHandler.sendPacket(new PlayerMoveC2SPacket.PositionAndOnGround(posX, posY, posZ, false));
-		
-		
-				
 		super.onTick();
 	}
 	
@@ -47,5 +44,4 @@ public class ExampleModule extends Mod {
 		
 		super.onDisable();
 	}
-	
 }

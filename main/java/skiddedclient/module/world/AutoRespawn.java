@@ -7,7 +7,7 @@ public class AutoRespawn extends Mod {
 	public static MinecraftClient mc = MinecraftClient.getInstance();
 
 	public AutoRespawn() {
-		super("AutoRespawn", "This is an Example module", Category.EXPLOIT);
+		super("AutoRespawn", "This is an Example module", Category.WORLD);
 	}
 
 	@Override
